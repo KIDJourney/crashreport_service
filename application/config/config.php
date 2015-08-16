@@ -211,7 +211,7 @@ $config['log_date_format'] = 'Y-m-d H:i:s';
 |
 | Leave this BLANK unless you would like to set something other than the default
 | system/cache/ folder.  Use a full server path with trailing slash.
-| ÈôÎª¿Õ£¬Ä¬ÈÏkeyÇ°×ºÎªsystem_cache£¬¶ÔmemcacheºÍkvdbµÄÊý¾Ý»º´æÓÐÐ§
+| ï¿½ï¿½Îªï¿½Õ£ï¿½Ä¬ï¿½ï¿½keyÇ°×ºÎªsystem_cacheï¿½ï¿½ï¿½ï¿½memcacheï¿½ï¿½kvdbï¿½ï¿½ï¿½ï¿½ï¿½Ý»ï¿½ï¿½ï¿½ï¿½ï¿½Ð§
 |
 */
 $config['cache_path'] = '';
@@ -358,13 +358,13 @@ $config['rewrite_short_tags'] = FALSE;
 */
 $config['proxy_ips'] = '';
 
-/*  SAE ÌØ¶¨ÅäÖÃ */
-/* Êä³öÀàÒ³Ãæ»º´æÅäÖÃ 
- * Ê¹ÓÃ $config['cache_path'] µÄÅäÖÃ×÷ÎªÇ°×º Ä¬ÈÏÎª "system_cache_"
- * Öµ£º
- * '' ¼´Ê¹Ê¹ÓÃÁË $this->output->cache(n); Ò²²»»á»º´æ
- * 'kvdb' Ê¹ÓÃ KVDB »º´æ (ÐèÒª¿ªÆôSAE KVDB·þÎñ)
- * 'memcache' Ê¹ÓÃ memcache »º´æ (ÐèÒª¿ªÆôSAE Memcache·þÎñ)
+/*  SAE ï¿½Ø¶ï¿½ï¿½ï¿½ï¿½ï¿½ */
+/* ï¿½ï¿½ï¿½ï¿½ï¿½Ò³ï¿½æ»ºï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ 
+ * Ê¹ï¿½ï¿½ $config['cache_path'] ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ÎªÇ°×º Ä¬ï¿½ï¿½Îª "system_cache_"
+ * Öµï¿½ï¿½
+ * '' ï¿½ï¿½Ê¹Ê¹ï¿½ï¿½ï¿½ï¿½ $this->output->cache(n); Ò²ï¿½ï¿½ï¿½á»ºï¿½ï¿½
+ * 'kvdb' Ê¹ï¿½ï¿½ KVDB ï¿½ï¿½ï¿½ï¿½ (ï¿½ï¿½Òªï¿½ï¿½ï¿½ï¿½SAE KVDBï¿½ï¿½ï¿½ï¿½)
+ * 'memcache' Ê¹ï¿½ï¿½ memcache ï¿½ï¿½ï¿½ï¿½ (ï¿½ï¿½Òªï¿½ï¿½ï¿½ï¿½SAE Memcacheï¿½ï¿½ï¿½ï¿½)
  */
 $config['sae_output_cache'] = 'kvdb';
 

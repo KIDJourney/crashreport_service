@@ -7,7 +7,7 @@ if ( ! defined('BASEPATH')) exit('No direct script access allowed');
 class Auth_lib {
     private $ci ;
     private $session_name;
-    private $loaded_model;
+    private $passwd_key;
     function __construct()
     {
         $this->ci = & get_instance();
@@ -17,8 +17,9 @@ class Auth_lib {
 
     function init_lib($db_name,$login_key,$passwd_key,$session_name)
     {
-        $this->ci->auth_model->init_model($db_name,$login_key,$passwd_key);
+        $this->ci->auth_model->init_model($db_name,$login_key);
         $this->session_name = $session_name;
+        $this->passwd_key = $passwd_key;
     }
 
     /*
@@ -32,10 +33,11 @@ class Auth_lib {
         if ($this->check_login()){
             return true;
         }
-        $real_passwd = $this->ci->auth_model->get_passwd($username);
-        if ($real_passwd && $real_passwd == $passwd ){
-            $this->set_session($username);
-            return true;
+        $user_data = $this->ci->auth_model->get_user($username);
+        $passwd_key = $this->passwd_key;
+        if ($user_data && $user_data->$passwd_key == $passwd){
+            $this->set_session($user_data);
+            return True;
         } else {
             return false;
         }
@@ -48,7 +50,7 @@ class Auth_lib {
      * */
     private function set_session($username)
     {
-        return $this->ci->session->set_userdata(array($this->session_name=>$username));
+        return $this->ci->session->set_userdata(array('suid'=>$username->id));
     }
 
     /*

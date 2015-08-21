@@ -11,19 +11,17 @@
             $this->load->database();
         }
 
-        function init_model($db_name , $login_key , $passwd_key)
+        function init_model($db_name , $login_key)
         {
             $this->db_name = $db_name;
             $this->login_key = $login_key;
-            $this->passwd_key = $passwd_key;
         }
 
-        function get_passwd($login_name)
+        function get_user($login_name)
         {
             $result = $this->db->get_where($this->db_name,
                 array("$this->login_key"=>$login_name))->result();
-            $passwd_key = $this->passwd_key;
-            return $result?$result[0]->$passwd_key:false;
+            return $result?$result[0]:false;
         }
 
 

@@ -5,11 +5,12 @@ class Api extends CI_Controller {
     {
         parent::__construct();
         $this->load->library('auth_lib');
+        $this->load->library('session');
     }
 
     public function index()
     {
-        echo 'Hello World!';
+        print_r(array('a'=>array('b'=>'c','c'=>'d')));
     }
 
     public function user_login()
@@ -22,7 +23,15 @@ class Api extends CI_Controller {
             if ($this->auth_lib->login($username, $passwd)) {
                 $result['status'] = 1;
             }
-        }
+        } // else {
+//            echo <<<EOF
+//            <form action='user_login' method="post">
+//                <input type="text" name="username">
+//                <input type="text" name="password">
+//                <input type="submit">
+//            </form>
+//EOF;
+//        }
         echo json_encode($result);
 
     }

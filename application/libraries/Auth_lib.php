@@ -48,9 +48,10 @@ class Auth_lib {
      * @param string
      * @return NULL
      * */
-    private function set_session($username)
+    private function set_session($user_data)
     {
-        return $this->ci->session->set_userdata(array('suid'=>$username->id));
+        $session_data = array('suid'=>$user_data->id,'type'=>($this->passwd_key=='user_passwd'?'user':'repairer'));
+        return $this->ci->session->set_userdata($session_data);
     }
 
     /*
@@ -61,16 +62,12 @@ class Auth_lib {
      * */
     public function check_login()
     {
-        return $this->ci->session->userdata($this->session_name) or false;
+        return $this->ci->session->userdata('suid') or false;
     }
 
-    public function get_username()
+    public function check_type()
     {
-        if (!$this->check_login()){
-            return False;
-        } else {
-            return $this->ci->session->userdata($this->session_name);
-        }
+        return $this->ci->session->userdata('type') or false;
     }
 
     /*

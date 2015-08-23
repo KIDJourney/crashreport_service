@@ -26,7 +26,6 @@ class Debug extends CI_Controller{
     function save_file()
     {
         $config['upload_path'] = 'picture';
-        $config['allowed_types'] = 'gif|jpg|png';
         $config['encrypt_name'] = true;
 
         $this->load->library('upload' , $config);

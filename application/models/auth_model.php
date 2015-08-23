@@ -3,7 +3,6 @@
 
         private $db_name;
         private $login_key;
-        private $passwd_key;
 
         function __construct()
         {
@@ -23,6 +22,4 @@
                 array("$this->login_key"=>$login_name))->result();
             return $result?$result[0]:false;
         }
-
-
     }

@@ -6,6 +6,8 @@ class Api extends CI_Controller {
         parent::__construct();
         $this->load->library('auth_lib');
         $this->load->library('session');
+        $this->load->model('api_model');
+        $this->output->set_content_type('application/json');
     }
 
     public function index()
@@ -24,17 +26,38 @@ class Api extends CI_Controller {
                 $result['status'] = 1;
             }
         }  else {
-            echo <<<EOF
-            <form action='user_login' method="post">
-                <input type="text" name="username">
-                <input type="text" name="password">
-                <input type="submit">
-            </form>
-EOF;
+            $result['error'] =
         }
-        echo json_encode($result);
+        $this->output->set_output(json_encode($result));
     }
 
+    public function create_report()
+    {
+        $result = array('status'=>0);
+        if (!$this->auth_lib->check_login()){
+            $result['status'] = 0;
+            $result['error'] = "You have to login";
+            $this->output->set_output(json_encode($result));
+        } else {
+            $required = array('report_post',
+                'report_info',
+                'report_type',
+                'report_status');
+            $avaliable = True;
+            foreach ($required as $key){
+                if (!$this->input->post($key)){
+                    $avaliable = False;
+                } else {
+                    $required[$key] = $this-input->post($key);
+                }
+            }
+            if ($avaliable){
+                $required['report_reporter'] = $this->auth_lib->check_login();
+                
+            }
+
+        }
+    }
 
     public function repairer_login()
     {
@@ -47,6 +70,7 @@ EOF;
                 $result['status'] = 1;
             }
         }
-        echo json_encode($result);
+        $this->output->set_output(json_encode($result));
     }
+
 }

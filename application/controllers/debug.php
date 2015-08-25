@@ -27,6 +27,7 @@ class Debug extends CI_Controller{
     {
         $config['upload_path'] = 'picture';
         $config['encrypt_name'] = true;
+        $config['allowed_types'] = 'jpg';
 
         $this->load->library('upload' , $config);
 

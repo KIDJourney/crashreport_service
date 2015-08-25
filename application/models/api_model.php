@@ -9,7 +9,7 @@
 
         public function add_report($insert_data)
         {
-            $this->db->insert('report',$insert_data);
+            return $this->db->insert('report',$insert_data);
         }
 
 }

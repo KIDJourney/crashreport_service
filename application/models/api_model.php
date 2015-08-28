@@ -12,4 +12,11 @@
             return $this->db->insert('report',$insert_data);
         }
 
+        public function list_report($page)
+        {
+            if ($page <= 0)
+                $page = 1;
+            return $this->db->get('report',$page*10 , ($page - 1) * 10);
+        }
+
 }

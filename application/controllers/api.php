@@ -15,6 +15,20 @@ class Api extends CI_Controller {
         die("No access right");
     }
 
+    public function repairer_login()
+    {
+        $result = array('status'=>"failed");
+        if ($this->input->post('username') && $this->input->post('password')){
+            $username = $this->input->post('username');
+            $passwd = $this->input->post('password');
+            $this->auth_lib->init_lib('repairer','repairer_login','repairer_passwd','repairer');
+            if ($this->auth_lib->login($username, $passwd)) {
+                $result['status'] = "succeed";
+            }
+        }
+        $this->output->set_output(json_encode($result));
+    }
+
     public function user_login()
     {
 
@@ -125,18 +139,20 @@ class Api extends CI_Controller {
         }
     }
 
-    public function repairer_login()
+    public function list_report($page)
     {
-        $result = array('status'=>"failed");
-        if ($this->input->post('username') && $this->input->post('password')){
-            $username = $this->input->post('username');
-            $passwd = $this->input->post('password');
-            $this->auth_lib->init_lib('repairer','repairer_login','repairer_passwd','repairer');
-            if ($this->auth_lib->login($username, $passwd)) {
-                $result['status'] = "succeed";
+        $session_check = $this->auth_lib->check_type();
+        if (!($session_check && $session_check != 'user')) {
+            $this->output->set_output(json_encode(array('status' => 'failed', 'error' => 'You have no access right')));
+        } else {
+            if (!is_numeric($page)) {
+                $this->output->set_output(json_encode(array('status' => 'failed', 'error' => 'incorrect page argument')));
+            } else {
+                $report_list = ($this->api_model->list_report($page)->result());
+                $result = array();
+                $this->output->set_output(json_encode($report_list));
             }
         }
-        $this->output->set_output(json_encode($result));
-    }
 
+    }
 }

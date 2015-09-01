@@ -17,28 +17,29 @@ class Api extends CI_Controller {
 
     public function repairer_login()
     {
-        $result = array('status'=>"failed");
+        $result = array('status'=>"0");
         if ($this->input->post('username') && $this->input->post('password')){
             $username = $this->input->post('username');
             $passwd = $this->input->post('password');
             $this->auth_lib->init_lib('repairer','repairer_login','repairer_passwd','repairer');
             if ($this->auth_lib->login($username, $passwd)) {
-                $result['status'] = "succeed";
+                $result['status'] = "1";
             }
         }
         $this->output->set_output(json_encode($result));
     }
 
+
     public function user_login()
     {
 
-        $result = array('status'=>"failed");
+        $result = array('status'=>"0");
         if ($this->input->post('username') && $this->input->post('password')) {
             $username = $this->input->post('username');
             $passwd = $this->input->post('password');
             $this->auth_lib->init_lib('users', 'user_login', 'user_passwd', 'user');
             if ($this->auth_lib->login($username, $passwd)) {
-                $result['status'] = "succeed" ;
+                $result['status'] = "1" ;
             }
         }  else {
             $result['error'] = "username or password incorrect";
@@ -60,11 +61,53 @@ class Api extends CI_Controller {
         $this->output->set_output(json_encode($result));
     }
 
+
+    public function user_register()
+    {
+        $result = array('status'=>'0');
+        $required = array(
+            'user_login',
+            'user_passwd',
+            'user_nickname',
+            'user_tel');
+        $user_data = array();
+        $flag = 1;
+        foreach ($required as $key){
+            if (!$this->input->post($key)){
+                $flag = 0;
+                break;
+            } else {
+                $user_data[$key] = $this->input->post($key);
+            }
+        }
+        if (!$flag){
+            $result['error'] = "Some argument is missed";
+            $this->output->set_output(json_encode($result));
+        } else {
+            if (!preg_match('/^[A-Za-z][A-za-z0-9]{5,31}&/' , $user_data['user_login'])){
+                $result['status'] = 0;
+                $result['error'] = "user name illegal";
+                $this->output->set_output(json_encode($result));
+            } else {
+                $this->api_model->add_user($user_data);
+                if ($this->db->_error_message()){
+                    $result['status'] = 0 ;
+                    $result['error'] = $this->db->_error_message();
+                    $this->output->set_output(json_encode($result));
+                } else {
+                    $result['status'] = 1;
+                    $this->output->set_output(json_encode($result));
+                }
+            }
+        }
+    }
+
+
     public function create_report()
     {
-        $result = array('status' => "failed");
+        $result = array('status' => "0");
         if (!$this->auth_lib->check_login()) {
-            $result['status'] = "failed";
+            $result['status'] = "0";
             $result['error'] = "You have to login";
             $this->output->set_output(json_encode($result));
         } else {
@@ -84,14 +127,13 @@ class Api extends CI_Controller {
             $avaliable = True;
             foreach ($required as $key => $value) {
                 if (!$this->input->post($key)) {
-                    echo "$key not found";
                     $avaliable = False;
                 } else {
                     $required[$key] = $this->input->post($key);
                 }
             }
             if (!$avaliable) {
-                $result['status'] = "failed";
+                $result['status'] = "0";
                 $result['error'] = "You have missed some arguments";
                 $this->output->set_output(json_encode($result));
 //                echo <<<EOF
@@ -112,7 +154,7 @@ class Api extends CI_Controller {
                 $file_name = "";
 
                 if (!$this->upload->do_upload('picture')) {
-                    $result['status'] = "failed";
+                    $result['status'] = "0";
                     $result['error'] = $this->upload->display_errors();
                     echo $this->upload->display_errors();
                     $this->output->set_output(json_encode($result));
@@ -127,7 +169,7 @@ class Api extends CI_Controller {
                         $result['status'] = 'success';
                         $this->output->set_output(json_encode($result));
                     } else {
-                        $result['status'] = 'failed';
+                        $result['status'] = '0';
                         $result['error'] = "databases error";
                         $this->output->set_output(json_encode($result));
                     }
@@ -143,16 +185,25 @@ class Api extends CI_Controller {
     {
         $session_check = $this->auth_lib->check_type();
         if (!($session_check && $session_check != 'user')) {
-            $this->output->set_output(json_encode(array('status' => 'failed', 'error' => 'You have no access right')));
+            $this->output->set_output(json_encode(array('status' => '0', 'error' => 'You have no access right')));
         } else {
             if (!is_numeric($page)) {
-                $this->output->set_output(json_encode(array('status' => 'failed', 'error' => 'incorrect page argument')));
+                $this->output->set_output(json_encode(array('status' => '0', 'error' => 'incorrect page argument')));
             } else {
                 $report_list = ($this->api_model->list_report($page)->result());
-                $result = array();
                 $this->output->set_output(json_encode($report_list));
             }
         }
 
+    }
+
+    public function check_report($report_id)
+    {
+        if (isset($report_id) && !is_numeric($report_id)){
+            $this->output->set_output(json_encode(array('status'=>'0','error'=>'incorrect page argument')));
+        } else {
+            $report_info = $this->api_model->check_report($report_id)
+            $this->output->set_output(json_encode($report_info));
+        }       
     }
 }

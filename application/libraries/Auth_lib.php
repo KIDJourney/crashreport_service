@@ -70,6 +70,11 @@ class Auth_lib {
         return $this->ci->session->userdata('type') or false;
     }
 
+    public function check_suid()
+    {
+        return $this->ci->session->userdata('suid') or false;
+    }
+
     /*
      * destroy the session
      *

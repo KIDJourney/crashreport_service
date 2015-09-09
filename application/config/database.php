@@ -48,8 +48,8 @@
 $active_group = 'default';
 $active_record = TRUE;
 
-$db['default']['hostname'] = SAE_MYSQL_HOST_M;//Ö÷¿â
-$db['default']['hostname_s'] = SAE_MYSQL_HOST_S;//´Ó¿â 
+$db['default']['hostname'] = SAE_MYSQL_HOST_M;//ï¿½ï¿½ï¿½ï¿½
+$db['default']['hostname_s'] = SAE_MYSQL_HOST_S;//ï¿½Ó¿ï¿½ 
 $db['default']['username'] = SAE_MYSQL_USER;
 $db['default']['password'] = SAE_MYSQL_PASS;
 $db['default']['database'] = SAE_MYSQL_DB;
@@ -59,7 +59,7 @@ $db['default']['dbprefix'] = '';
 $db['default']['pconnect'] = FALSE;
 $db['default']['db_debug'] = FALSE;
 $db['default']['cache_on'] = FALSE;
-$db['default']['cachedir'] = ''; //SAEÊý¾Ý¿â»º´æ, Ê¹ÓÃkvdb½øÐÐ»º´æ. ´ËÅäÖÃÖµÎªkeyÇ°×º, ÀýÈç "dbcache_". Èô²»ÉèÖÃ, Ôò²»»º´æ
+$db['default']['cachedir'] = ''; //SAEï¿½ï¿½ï¿½Ý¿â»ºï¿½ï¿½, Ê¹ï¿½ï¿½kvdbï¿½ï¿½ï¿½Ð»ï¿½ï¿½ï¿½. ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ÖµÎªkeyÇ°×º, ï¿½ï¿½ï¿½ï¿½ "dbcache_". ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½, ï¿½ò²»»ï¿½ï¿½ï¿½
 $db['default']['char_set'] = 'utf8';
 $db['default']['dbcollat'] = 'utf8_general_ci';
 $db['default']['swap_pre'] = '';

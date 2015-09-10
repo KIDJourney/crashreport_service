@@ -28,6 +28,8 @@ class Api extends CI_Controller {
             if ($this->auth_lib->login($username, $passwd)) {
                 $result['status'] = "1";
             }
+        } else {
+            $result['error'] = "username or password incorrect";
         }
         $this->output->set_output(json_encode($result));
     }
@@ -46,24 +48,19 @@ class Api extends CI_Controller {
             }
         } else {
             $result['error'] = "username or password incorrect";
-//            echo <<<EOF
-//<html>
-//<head>
-//<title>Upload Form</title>
-//</head>
-//<body>
-//<form action="http://crashreport.sinaapp.com/api/user_login" method="post">
-//    <input type="text" name="username" >
-//    <input type="text" name="password" >
-//    <input type="submit">
-//</form>
-//</body>
-//</html>
-//EOF;
         }
         $this->output->set_output(json_encode($result));
     }
 
+
+    public function logoff()
+    {
+        if($this->auth_lib->logoff()){
+            $this->output->set_output(json_encode(array('status'=>'1')));
+        } else {
+            $this->error_message("You have not logged in");
+        }
+    }
 
     public function user_register()
     {
@@ -139,22 +136,7 @@ class Api extends CI_Controller {
                 $result['status'] = "0";
                 $result['error'] = "You have missed some arguments";
                 $this->output->set_output(json_encode($result));
-//                echo <<<EOF
-//                <html>
-//                <body>
-//                    <form action="http://crashreport.sinaapp.com/api/create_report" method="post" accept-charset="utf-8" enctype="multipart/form-data">
-//                        <input type="file" name="picture" size="20"><br>
-//                        <input type="text" name="report_pos"><br>
-//                        <input type="text" name="report_info"><br>
-//                        <input type="text" name="report_type"><br>
-//                        <input type="submit" value="upload">
-//                    </form>
-//                </body>
-//                </form>
-//EOF;
             } else {
-
-                $file_name = "";
 
                 if (!$this->upload->do_upload('picture')) {
                     $result['status'] = "0";
@@ -184,13 +166,13 @@ class Api extends CI_Controller {
         }
     }
 
-    public function list_report($page)
+    public function list_report($page=1)
     {
-        if (!$this->check_access('user')) {
-            $this->output->set_output(json_encode(array('status' => '0', 'error' => 'You have no access right')));
+        if (isset($report_id) && !is_numeric($report_id)) {
+            $this->error_message("You have no access right");
         } else {
             if (!is_numeric($page)) {
-                $this->output->set_output(json_encode(array('status' => '0', 'error' => 'incorrect page argument')));
+                $this->error_message("incorrect page number");
             } else {
                 $report_list = ($this->api_model->list_report($page));
                 $this->output->set_output(json_encode($report_list));
@@ -199,10 +181,31 @@ class Api extends CI_Controller {
 
     }
 
+    public function list_my_report()
+    {
+        if (!$this->check_login()){
+            $this->error_message("You haven't logged in");
+        } else {
+            $suid = $this->check_login();
+            $reports = $this->api_model->list_user_report($suid);
+            $this->output->set_output(json_encode($reports));
+        }
+    }
+
+    public function list_my_accept()
+    {
+        if (!$this->check_access('repairer')){
+            $this->output->set_output(json_encode(array('status'=>'0','error'=>'You have not logged in')));
+        } else {
+
+        }
+    }
+
+
     public function check_report($report_id)
     {
         if (isset($report_id) && !is_numeric($report_id)) {
-            $this->output->set_output(json_encode(array('status' => '0', 'error' => 'incorrect page argument')));
+            $this->error_message("incorrect page argument");
         } else {
             $report_info = $this->api_model->check_report($report_id);
             $this->output->set_output(json_encode($report_info));
@@ -232,7 +235,7 @@ class Api extends CI_Controller {
             if ($this->api_model->finish_report($repairer_id, $report_id)) {
                 $this->output->set_output(json_encode(array('status' => '1')));
             } else {
-                $this->error_message("Databases error");
+                $this->error_message("Databases error or the report have been finished");
             }
         }
 
@@ -244,19 +247,39 @@ class Api extends CI_Controller {
         if (!$this->check_access('user')){
             $this->error_message("You don't have access");
         } else {
-            
+            $required = array('report_id'=>'','comment_content'=>'');
+            $flag = 1;
+            foreach($required as $key=>$value){
+                if($this->input->post($key)){
+                    $required[$key] = $this->input->post($key);
+                } else {
+                    $flag = 0;
+                    break;
+                }
+            }
+            if ($flag){
+                if($this->api_model->add_comment($this->check_login(),
+                        $required['report_id'],$required['comment_content'])){
+                    $this->output->set_output(json_encode(array('status'=>'1')));
+                } else {
+                    $this->error_message("Databases Error");
+                }
+            }
         }
     }
 
 
 
-    public function debug()
+    private function check_login()
     {
-        print_r(get_defined_vars());
+        return $this->auth_lib->check_login();
     }
 
-
     /**
+     *
+     * Logged in and is $access : True
+     *
+     *
      * @return mixed
      */
     private function check_access($access)
@@ -270,12 +293,11 @@ class Api extends CI_Controller {
         $session_check = $this->auth_lib->check_type();
 
         return ($session_check && $session_check == $access);
+
     }
 
     private function error_message($error)
     {
         $this->output->set_output(json_encode(array('status' => '0', 'error' => $error)));
     }
-
-
 }

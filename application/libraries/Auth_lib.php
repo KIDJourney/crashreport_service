@@ -62,17 +62,17 @@ class Auth_lib {
      * */
     public function check_login()
     {
-        return $this->ci->session->userdata('suid') or false;
+        return $this->ci->session->userdata('suid');
     }
 
     public function check_type()
     {
-        return $this->ci->session->userdata('type') or false;
+        return $this->ci->session->userdata('type');
     }
 
     public function check_suid()
     {
-        return $this->ci->session->userdata('suid') or false;
+        return $this->ci->session->userdata('suid');
     }
 
     /*
@@ -83,7 +83,7 @@ class Auth_lib {
      * */
     public function logoff()
     {
-        $this->ci->session->sess_destroy();
+        return $this->ci->session->sess_destroy();
     }
 
     public function debug()

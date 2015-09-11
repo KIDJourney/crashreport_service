@@ -192,12 +192,14 @@ class Api extends CI_Controller {
         }
     }
 
-    public function list_my_accept()
+    public function list_repairer_accept()
     {
         if (!$this->check_access('repairer')){
             $this->output->set_output(json_encode(array('status'=>'0','error'=>'You have not logged in')));
         } else {
-
+            $suid = $this->check_login();
+            $reports = $this->api_model->list_repairer_report($suid);
+            $this->output->set_output(json_encode($reports));
         }
     }
 

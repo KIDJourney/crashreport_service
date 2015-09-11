@@ -31,7 +31,7 @@ class Auth_lib {
     public function login($username , $passwd)
     {
         if ($this->check_login()){
-            return true;
+            $this->logoff();
         }
         $user_data = $this->ci->auth_model->get_user($username);
         $passwd_key = $this->passwd_key;

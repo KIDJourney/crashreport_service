@@ -1,6 +1,5 @@
 <?php
 
-
 class Api extends CI_Controller {
 
     function __construct()
@@ -114,7 +113,7 @@ class Api extends CI_Controller {
             $upload_config = array(
                 'upload_path'   => 'picture',
                 'encrypt_name'  => true,
-                'allowed_types' => 'jpg',
+                'allowed_types' => 'jpg|png',
             );
 
             $this->load->library('upload', $upload_config);
@@ -158,10 +157,7 @@ class Api extends CI_Controller {
                         $result['error'] = "databases error";
                         $this->output->set_output(json_encode($result));
                     }
-
-
                 }
-
             }
         }
     }

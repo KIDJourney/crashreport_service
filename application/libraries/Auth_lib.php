@@ -37,7 +37,8 @@ class Auth_lib {
         $passwd_key = $this->passwd_key;
         if ($user_data && $user_data->$passwd_key == $passwd){
             $this->set_session($user_data);
-            return True;
+            $user_data->$passwd_key = NULL;
+            return $user_data;
         } else {
             return false;
         }

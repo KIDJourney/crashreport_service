@@ -18,7 +18,7 @@ class Api_model extends CI_Model {
     {
         if ($page <= 0)
             $page = 1;
-        return $this->db->get('report', $page * 10, ($page - 1) * 10)->result();
+        return $this->report_url_fixer($this->db->get('report', $page * 10, ($page - 1) * 10)->result());
     }
 
     public function add_user($user_data)
@@ -28,7 +28,7 @@ class Api_model extends CI_Model {
 
     public function check_report($report_id)
     {
-        $query_result = $this->db->get_where('report', array('id' => $report_id))->result();
+        $query_result = $this->report_url_fixer($this->db->get_where('report', array('id' => $report_id))->result());
         return $query_result[0];
 
     }
@@ -68,12 +68,12 @@ class Api_model extends CI_Model {
 
     public function list_user_report($user_id)
     {
-        return $this->db->get_where('report',array('report_reporter'=>$user_id))->result();
+        return $this->report_url_fixer($this->db->get_where('report',array('report_reporter'=>$user_id))->result());
     }
 
     public function list_repairer_report($repairer_id)
     {
-        return $this->db->get_where('report',array('repairer_fixerid'=>$repairer_id))->result();
+        return $this->report_url_fixer($this->db->get_where('report',array('repairer_fixerid'=>$repairer_id))->result());
     }
 
     public function add_comment($reporter_id,$report_id,$comment_content)
@@ -88,5 +88,14 @@ class Api_model extends CI_Model {
                              'comment_reporter_id'=>$reporter_id,
                              'comment_content'=>$comment_content);
         return $this->db->insert('comment',$insert_body);
+    }
+
+    private function report_url_fixer($report_list)
+    {
+        $url_prefix = "http://crashreport-picture.stor.sinaapp.com/";
+        foreach($report_list as $report){
+            $report->report_picurl = $url_prefix .  $report->report_picurl;
+        }
+        return $report_list;
     }
 }

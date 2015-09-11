@@ -46,9 +46,9 @@ class Api extends CI_Controller {
             if ($info = $this->auth_lib->login($username, $passwd)) {
                 $result['status'] = "1";
                 $result['info'] = $info;
+            } else {
+                $result['error'] = "username or password incorrect";
             }
-        } else {
-            $result['error'] = "username or password incorrect";
         }
         $this->output->set_output(json_encode($result));
     }

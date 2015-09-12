@@ -29,72 +29,56 @@ class Api_model extends CI_Model {
     public function check_report($report_id)
     {
         $query_result = $this->report_url_fixer($this->db->get_where('report', array('id' => $report_id))->result());
-        return $query_result[0];
-
+        return $query_result ? $query_result[0] : false;
     }
 
     public function accept_report($repairer_id, $report_id)
     {
-        $report_info = $this->check_report($report_id);
-        if ($report_info->report_status != 0) {
-            return false;
-        } else {
-            $timestamp = new DateTime();
-            $data = array(
-                'report_status'   => '1',
-                'report_fixerid'  => $repairer_id,
-                'report_acceptat' => $timestamp->format('Y-m-d H:i:s')
-            );
-            $this->db->where('id', $report_id);
-            return $this->db->update('report',$data);
-        }
+        $timestamp = new DateTime();
+        $data = array(
+            'report_status'   => '1',
+            'report_fixerid'  => $repairer_id,
+            'report_acceptat' => $timestamp->format('Y-m-d H:i:s')
+        );
+
+        $this->db->where('id', $report_id);
+        return $this->db->update('report', $data);
     }
 
-    public function finish_report($repairer_id , $report_id)
+    public function finish_report($repairer_id, $report_id)
     {
-        $report_info = $this->check_report($report_id);
-        if ($report_info->report_status != 1 or $report_info->report_fixerid != $repairer_id) {
-            return false;
-        } else {
-            $timestamp = new DateTime();
-            $data = array(
-                'report_status' => '2',
-                'report_endat' => $timestamp->format('Y-m-d H:i:s')
-            );
-            $this->db->where('id',$report_id);
-            return $this->db->update('report',$data);
-        }
+        $timestamp = new DateTime();
+        $data = array(
+            'report_status' => '2',
+            'report_endat'  => $timestamp->format('Y-m-d H:i:s')
+        );
+        $this->db->where('id', $report_id);
+        return $this->db->update('report', $data);
     }
 
     public function list_user_report($user_id)
     {
-        return $this->report_url_fixer($this->db->get_where('report',array('report_reporter'=>$user_id))->result());
+        return $this->report_url_fixer($this->db->get_where('report', array('report_reporter' => $user_id))->result());
     }
 
     public function list_repairer_report($repairer_id)
     {
-        return $this->report_url_fixer($this->db->get_where('report',array('repairer_fixerid'=>$repairer_id))->result());
+        return $this->report_url_fixer($this->db->get_where('report', array('repairer_fixerid' => $repairer_id))->result());
     }
 
-    public function add_comment($reporter_id,$report_id,$comment_content)
+    public function add_comment($reporter_id, $report_id, $comment_content)
     {
-        $report_info = $this->check_report($report_id);
-        if ($report_info or $report_info->report_reporter != $reporter_id or
-            $report_info->status != '3' or $report_info->report_comment != '0'){
-            return false;
-        }
-
-        $insert_body = array('comment_report_id'=>$report_id ,
-                             'comment_reporter_id'=>$reporter_id,
-                             'comment_content'=>$comment_content);
-        return $this->db->insert('comment',$insert_body);
+        $insert_body = array('comment_report_id'   => $report_id,
+                             'comment_reporter_id' => $reporter_id,
+                             'comment_content'     => $comment_content);
+        return $this->db->insert('comment', $insert_body);
     }
 
     private function report_url_fixer($report_list)
     {
         $url_prefix = "http://crashreport-picture.stor.sinaapp.com/";
-        foreach($report_list as $report){
-            $report->report_picurl = $url_prefix .  $report->report_picurl;
+        foreach ($report_list as $report) {
+            $report->report_picurl = $url_prefix . $report->report_picurl;
         }
         return $report_list;
     }

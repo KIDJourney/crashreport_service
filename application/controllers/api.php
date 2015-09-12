@@ -217,15 +217,30 @@ class Api extends CI_Controller {
 
     public function accept_report($report_id)
     {
+        if (!isset($report_id) or !is_numeric($report_id)) {
+            $this->error_message("argument error");
+            return;
+        }
         if (!$this->check_access('repairer')) {
             $this->error_message("You don't have access");
+        }
+
+        $repairer_id = $this->auth_lib->check_suid();
+        $report_info = $this->api_model->check_report($report_id);
+        if (!$report_info) {
+            $this->error_message("report doesn't exist");
+            return;
+        }
+
+        if ($report_info->report_status != 0) {
+            $this->error_message("report can't be accepted");
+            return;
+        }
+
+        if ($this->api_model->accept_report($repairer_id, $report_id)) {
+            $this->output->set_output(json_encode(array('status' => '1')));
         } else {
-            $repairer_id = $this->auth_lib->check_suid();
-            if ($this->api_model->accept_report($repairer_id, $report_id)) {
-                $this->output->set_output(json_encode(array('status' => '1')));
-            } else {
-                $this->error_message('Databases error');
-            }
+            $this->error_message('Databases error');
         }
     }
 
@@ -233,13 +248,30 @@ class Api extends CI_Controller {
     {
         if (!$this->check_access('repairer')) {
             $this->error_message("You don't have access");
+        }
+
+        $repairer_id = $this->auth_lib->check_suid();
+        $report_info = $this->api_model->check_report($report_id);
+
+        if (!$report_info){
+            $this->error_message('report not exist');
+            return ;
+        }
+
+        if ($report_info->report_status != 1){
+            $this->error_message("report can't be finished");
+            return ;
+        }
+
+        if ($report_info->report_fixerid != $repairer_id ){
+            $this->error_message("report do not belong to you");
+            return ;
+        }
+
+        if ($this->api_model->finish_report($repairer_id, $report_id)) {
+            $this->output->set_output(json_encode(array('status' => '1')));
         } else {
-            $repairer_id = $this->auth_lib->check_suid();
-            if ($this->api_model->finish_report($repairer_id, $report_id)) {
-                $this->output->set_output(json_encode(array('status' => '1')));
-            } else {
-                $this->error_message("Databases error or the report have been finished");
-            }
+            $this->error_message("Databases error , please try later");
         }
 
     }
@@ -263,6 +295,24 @@ class Api extends CI_Controller {
             }
         }
         if ($flag) {
+
+            $report_info = $this->api_model->check_report($required['report_id']);
+
+            if ($report_info->report_status != 2){
+                $this->error_message("The report haven't been finished");
+                return ;
+            }
+
+            if ($report_info->report_reporter != $this->check_login()){
+                $this->error_message("You are not the submitter of the report");
+                return ;
+            }
+
+            if ($report_info->report_comment != 0){
+                $this->error_message("You have submitted a comment to this report");
+                return ;
+            }
+
             if ($this->api_model->add_comment($this->check_login(),
                 $required['report_id'], $required['comment_content'])
             ) {
@@ -275,9 +325,7 @@ class Api extends CI_Controller {
 
     public function debug()
     {
-        $this->output->set_output("blablabla");
-        return;
-        $this->output->set_output("I don't want to blabla");
+        //pass
     }
 
 

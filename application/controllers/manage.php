@@ -10,10 +10,8 @@ class Manage extends CI_Controller {
         $this->load->model('manage_model');
         $this->load->helper('url');
 
-        $this->auth_lib->init_lib('manager','manager_login','manager_login','manager');
-
-        if (!$this->check_access()){
-            if (current_url() != base_url('manage/login')){
+        if (!$this->check_access()) {
+            if (current_url() != base_url('manage/login')) {
                 redirect(base_url('manage/login'));
             }
         }
@@ -22,12 +20,23 @@ class Manage extends CI_Controller {
 
     public function index()
     {
-
-
+        echo "This is index";
     }
 
     public function login()
     {
+        if (!($this->input->post('username') && $this->input->post('password'))) {
+            $this->load->view('manage/login');
+        }
+
+        $username = $this->input->post('username');
+        $password = $this->input->post('password');
+        $this->auth_lib->init_lib('manager', 'manager_login', 'manager_passwd', 'manager');
+        if ($this->auth_lib->login($username, $password)){
+            redirect(base_url('manage'));
+        } else {
+            $this->load->view('manage/login',array('error'=>'true'));
+        }
 
     }
 
@@ -35,7 +44,7 @@ class Manage extends CI_Controller {
     private function check_access()
     {
         $session_type = $this->auth_lib->check_type();
-        if ($session_type && $session_type == 'manager'){
+        if ($session_type && $session_type == 'manager') {
             return True;
         } else {
             return False;

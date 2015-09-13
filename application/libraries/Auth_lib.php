@@ -51,7 +51,8 @@ class Auth_lib {
      * */
     private function set_session($user_data)
     {
-        $session_data = array('suid'=>$user_data->id,'type'=>($this->passwd_key=='user_passwd'?'user':'repairer'));
+        $passwd2type = array('user_passwd'=>'user','repairer_passwd'=>'repairer','manager_passwd'=>'manager');
+        $session_data = array('suid'=>$user_data->id,'type'=>$passwd2type[$this->passwd_key]);
         return $this->ci->session->set_userdata($session_data);
     }
 

@@ -88,7 +88,7 @@ class Api extends CI_Controller {
             return;
         }
 
-        if (!preg_match('/^[A-Za-z][A-za-z0-9]{5,31}/', $user_data['user_login'])) {
+        if (!preg_match('/^[A-za-z0-9]{5,31}/', $user_data['user_login'])) {
             $this->error_message("user name illegal");
             return;
         }

@@ -22,8 +22,12 @@ class Manage extends CI_Controller {
     {
         $username = $this->session->userdata('username');
         $recent_report = $this->manage_model->get_recent_report();
+        $report_count = $this->manage_model->get_report_count();
 
-        $this->load->view('manage/dashboard',array('username'=>$username,"reports"=>$recent_report));
+        $this->load->view('manage/dashboard',array('username'=>$username,
+                                                   "reports"=>$recent_report,
+                                                   "report_count"=>$report_count));
+
     }
 
     public function login()
@@ -62,7 +66,7 @@ class Manage extends CI_Controller {
 
     public function debug()
     {
-        print_r($this->manage_model->get_recent_report());
+        print_r($this->manage_model->get_report_count());
     }
 
 

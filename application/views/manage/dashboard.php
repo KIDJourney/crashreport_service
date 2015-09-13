@@ -67,32 +67,28 @@
             </ul>
         </div>
         <div class="col-sm-9 col-sm-offset-3 col-md-10 col-md-offset-2 main">
-            <h1 class="page-header">Dashboard</h1>
+            <h1 class="page-header">总览</h1>
 
             <div class="row placeholders">
                 <div class="col-xs-6 col-sm-3 placeholder">
-                    <img data-src="holder.js/200x200/auto/sky" class="img-responsive" alt="Generic placeholder thumbnail">
-                    <h4>Label</h4>
-                    <span class="text-muted">Something else</span>
+                    <h3><?php echo $report_count['report'];?></h3>
+                    <span class="text-muted">24小时内报修数</span>
                 </div>
                 <div class="col-xs-6 col-sm-3 placeholder">
-                    <img data-src="holder.js/200x200/auto/vine" class="img-responsive" alt="Generic placeholder thumbnail">
-                    <h4>Label</h4>
-                    <span class="text-muted">Something else</span>
+                    <h3><?php echo $report_count['report_accept'];?></h3>
+                    <span class="text-muted">正在处理的报修</span>
                 </div>
                 <div class="col-xs-6 col-sm-3 placeholder">
-                    <img data-src="holder.js/200x200/auto/sky" class="img-responsive" alt="Generic placeholder thumbnail">
-                    <h4>Label</h4>
-                    <span class="text-muted">Something else</span>
+                    <h3><?php echo $report_count['report_finish'];?></h3>
+                    <span class="text-muted">24小时内完成的报修数</span>
                 </div>
                 <div class="col-xs-6 col-sm-3 placeholder">
-                    <img data-src="holder.js/200x200/auto/vine" class="img-responsive" alt="Generic placeholder thumbnail">
-                    <h4>Label</h4>
-                    <span class="text-muted">Something else</span>
+                    <h3><?php echo $report_count['report_all'];?></h3>
+                    <span class="text-muted">历史总保修数</span>
                 </div>
             </div>
 
-            <h2 class="sub-header">Section title</h2>
+            <h2 class="sub-header">最近提交的维修请求</h2>
             <div class="table-responsive">
                 <table class="table table-striped">
                     <thead>
@@ -112,7 +108,7 @@
                             <td><?= $report->report_pos;?></td>
                             <td><?= $report->report_type;?></td>
                             <td><?= $report->report_info;?></td>
-                            <td><?= $report->report_picurl;?></td>
+                            <td><?= '<a href="http://crashreport-picture.stor.sinaapp.com/'.$report->report_picurl . '">点击查看' . '</a>' ;?></td>
                             <td><?= $report->report_reporter;?></td>
                         </tr>
                     <?php endforeach; ?>

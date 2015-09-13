@@ -13,7 +13,7 @@ class Debug extends CI_Controller{
 
     function checksession()
     {
-        echo json_encode(array($this->session->userdata('suid'),$this->session->userdata('type')));
+        echo json_encode($this->session->userdata);
     }
 
     function setsession($value)

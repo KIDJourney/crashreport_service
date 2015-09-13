@@ -159,7 +159,7 @@ class Api extends CI_Controller {
         $required['report_reporter'] = $this->auth_lib->check_login();
 
         if ($this->api_model->add_report($required)) {
-            $result['status'] = 'success';
+            $result['status'] = '1';
             $this->output->set_output(json_encode($result));
         } else {
             $this->error_message("databases error");

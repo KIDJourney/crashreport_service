@@ -3,7 +3,7 @@
 -- http://www.phpmyadmin.net
 --
 -- 主机: w.rdc.sae.sina.com.cn:3307
--- 生成日期: 2015 年 09 月 11 日 16:07
+-- 生成日期: 2015 年 09 月 13 日 14:39
 -- 服务器版本: 5.5.23
 -- PHP 版本: 5.3.3
 
@@ -18,6 +18,8 @@ SET SQL_MODE="NO_AUTO_VALUE_ON_ZERO";
 --
 -- 数据库: `app_crashreport`
 --
+CREATE DATABASE `app_crashreport` DEFAULT CHARACTER SET utf8 COLLATE utf8_general_ci;
+USE `app_crashreport`;
 
 -- --------------------------------------------------------
 
@@ -31,7 +33,22 @@ CREATE TABLE IF NOT EXISTS `comment` (
   `comment_reporter_id` int(11) NOT NULL,
   `comment_content` text NOT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=MyISAM DEFAULT CHARSET=utf8 AUTO_INCREMENT=1 ;
+) ENGINE=MyISAM  DEFAULT CHARSET=utf8 AUTO_INCREMENT=2 ;
+
+-- --------------------------------------------------------
+
+--
+-- 表的结构 `manager`
+--
+
+CREATE TABLE IF NOT EXISTS `manager` (
+  `id` int(11) NOT NULL AUTO_INCREMENT,
+  `manager_login` varchar(60) NOT NULL,
+  `manager_passwd` varchar(32) NOT NULL,
+  `manager_registered` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP,
+  PRIMARY KEY (`id`),
+  UNIQUE KEY `manager_login` (`manager_login`)
+) ENGINE=MyISAM  DEFAULT CHARSET=utf8 AUTO_INCREMENT=2 ;
 
 -- --------------------------------------------------------
 
@@ -43,7 +60,7 @@ CREATE TABLE IF NOT EXISTS `position` (
   `id` int(11) NOT NULL AUTO_INCREMENT,
   `pos_name` varchar(16) NOT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=MyISAM DEFAULT CHARSET=utf8 AUTO_INCREMENT=1 ;
+) ENGINE=MyISAM  DEFAULT CHARSET=utf8 AUTO_INCREMENT=8 ;
 
 -- --------------------------------------------------------
 
@@ -58,7 +75,7 @@ CREATE TABLE IF NOT EXISTS `repairer` (
   `repairer_name` varchar(8) NOT NULL,
   `repairer_tel` varchar(12) NOT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=MyISAM  DEFAULT CHARSET=utf8 AUTO_INCREMENT=2 ;
+) ENGINE=MyISAM  DEFAULT CHARSET=utf8 AUTO_INCREMENT=3 ;
 
 -- --------------------------------------------------------
 
@@ -80,7 +97,7 @@ CREATE TABLE IF NOT EXISTS `report` (
   `report_acceptat` timestamp NOT NULL DEFAULT '0000-00-00 00:00:00',
   `report_endat` timestamp NOT NULL DEFAULT '0000-00-00 00:00:00',
   PRIMARY KEY (`id`)
-) ENGINE=MyISAM  DEFAULT CHARSET=utf8 AUTO_INCREMENT=4 ;
+) ENGINE=MyISAM  DEFAULT CHARSET=utf8 AUTO_INCREMENT=7 ;
 
 -- --------------------------------------------------------
 
@@ -92,7 +109,7 @@ CREATE TABLE IF NOT EXISTS `report_type` (
   `id` int(11) NOT NULL AUTO_INCREMENT,
   `type_name` varchar(16) NOT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=MyISAM DEFAULT CHARSET=utf8 AUTO_INCREMENT=1 ;
+) ENGINE=MyISAM  DEFAULT CHARSET=utf8 AUTO_INCREMENT=9 ;
 
 -- --------------------------------------------------------
 
@@ -109,4 +126,4 @@ CREATE TABLE IF NOT EXISTS `users` (
   `user_registered` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP,
   PRIMARY KEY (`id`),
   UNIQUE KEY `user_login` (`user_login`)
-) ENGINE=MyISAM  DEFAULT CHARSET=utf8 AUTO_INCREMENT=3 ;
+) ENGINE=MyISAM  DEFAULT CHARSET=utf8 AUTO_INCREMENT=23 ;

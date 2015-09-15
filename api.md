@@ -1,17 +1,17 @@
-####API DOC FOR CRASH REPORT
+#API DOC FOR CRASH REPORT
 
-###INTRO
+##INTRO
     
     All the api is under url/api/{$API_NAME}
 
     All the response is json type
 
-###API LIST
+##API LIST
 
-##COMMON
+###COMMON
 
 
-#logoff
+####logoff
 
 method : GET
 
@@ -19,9 +19,9 @@ response : ['status';'successed|failed'[, 'error':'error if exsit']]
 
 ***************************************
 
-##USER
+###USER
 
-#user_login
+####user_login
 
 method : POST
 
@@ -30,7 +30,7 @@ arugment : ['username':'','password':'']
 response : ['status';'successed|failed'[, 'error':'error if exsit']]
 
 
-#user_register
+####user_register
 
 method : POST
 
@@ -39,7 +39,7 @@ arugment : ['user_login':'','user_passwd':'','user_nickname':'','user_tel':'']
 response : response : ['status';'successed|failed'[, 'error':'error if exsit']]
 
 
-#create_report()
+####create_report()
 
 method : POST
 
@@ -48,7 +48,7 @@ arugment :['report_pos':'','report_info':'','report_type':'','picture':'']
 response : status
 
 
-#list_my_report()
+####list_my_report()
 
 description : get all the unaccept and unfinished report of logging in user
 
@@ -57,7 +57,7 @@ method : GET
 response = same as above
 
 
-#add_comment()
+####add_comment()
 
 description : add a comment to a finished report 
 
@@ -70,9 +70,9 @@ response : status json or error message
 
 ***************************************************
 
-##REPAIRER
+###REPAIRER
 
-#repairer_login
+####repairer_login
 
 method : POST
 
@@ -81,7 +81,7 @@ arugment : ['username':'','password':'']
 response : ['status';'successed|failed'[, 'error':'error if exsit']]
 
 
-#accept_report()
+####accept_report()
 
 description : accpet a report in the name of logging in repairer
 
@@ -95,7 +95,7 @@ response : status json or error message
 
 
 
-#finish_report()
+####finish_report()
 
 description : finish a report in the name of logging in repairer
 
@@ -109,9 +109,9 @@ response : status json or error message
 
 *************************************************
 
-##REPORT
+###REPORT
 
-#list_report
+####list_report
 
 description : get a list of ALL reports with page number
 
@@ -126,7 +126,7 @@ response = [
 {"id": "2","report_pos": "0","report_info": "zxcvasdf","report_type": "0","report_picurl": "9aa48a0aa8ad6b69ce6be929d80fd756.jpg","report_status": "2","report_fixerid": "1","report_reporter": "1","report_comment": "0","report_createat": "2015-08-26 14:44:17","report_acceptat": "2015-09-09 16:10:33","report_endat": "2015-09-09 16:11:00"}
 ]
 
-$list_unaccept_report()
+####list_unaccept_report()
 
 description : get all the unaccept report 
 
@@ -135,7 +135,7 @@ method : GET
 response : same as report 
 
 
-#list_repairer_accept()
+####list_repairer_accept()
 
 description : get all report accepted by the logging in repairer
 
@@ -143,7 +143,7 @@ method : GET
 
 response = same as above
 
-#list_type()
+####list_type()
 
 description : get the map from id to type
 
@@ -151,7 +151,7 @@ method : GET
 
 response = {['id':'','type':]}
 
-#list_position
+####list_position
 
 description : get the map from id to position
 

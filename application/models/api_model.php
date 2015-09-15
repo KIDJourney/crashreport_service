@@ -32,6 +32,17 @@ class Api_model extends CI_Model {
         return $query_result ? $query_result[0] : false;
     }
 
+    public function list_position()
+    {
+        return $this->db->get('position')->result();
+    }
+
+    public function list_type()
+    {
+        return $this->db->get('report_type')->result();
+    }
+
+
     public function accept_report($repairer_id, $report_id)
     {
         $timestamp = new DateTime();
@@ -74,6 +85,11 @@ class Api_model extends CI_Model {
         return $this->db->insert('comment', $insert_body);
     }
 
+    public function list_unaccpet()
+    {
+        return $this->report_url_fixer($this->db->get_where('report',array('report_status'=>'0'))->result());
+    }
+
     private function report_url_fixer($report_list)
     {
         $url_prefix = "http://crashreport-picture.stor.sinaapp.com/";
@@ -82,4 +98,5 @@ class Api_model extends CI_Model {
         }
         return $report_list;
     }
+
 }

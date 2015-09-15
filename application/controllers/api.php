@@ -244,6 +244,16 @@ class Api extends CI_Controller {
         }
     }
 
+    public function list_position()
+    {
+        $this->output->set_output(json_encode($this->api_model->list_position()));
+    }
+
+    public function list_type()
+    {
+        $this->output->set_output(json_encode($this->api_model->list_type()));
+    }
+
     public function finish_report($report_id)
     {
         if (!$this->check_access('repairer')) {
@@ -321,6 +331,11 @@ class Api extends CI_Controller {
                 $this->error_message("Databases Error");
             }
         }
+    }
+
+    public function list_unaccept_report()
+    {
+        $this->output->set_output(json_encode($this->api_model->list_unaccpet()));
     }
 
     public function debug()

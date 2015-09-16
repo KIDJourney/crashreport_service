@@ -345,9 +345,9 @@ class Api extends CI_Controller {
 
     public function list_unaccept_report()
     {
-        $result = $this->api_model->list_unaccept();
+        $result = $this->api_model->list_unaccpet();
         $this->add_status($result);
-        $this->output->set_output($result);
+        $this->output->set_output(json_encode($result));
     }
 
     public function check_user($id)

@@ -177,6 +177,7 @@ class Api extends CI_Controller {
             $this->error_message("incorrect page number");
         } else {
             $report_list = ($this->api_model->list_report($page));
+            $this->add_status($report_list);
             $this->output->set_output(json_encode($report_list));
         }
     }
@@ -189,6 +190,7 @@ class Api extends CI_Controller {
         } else {
             $suid = $this->check_login();
             $reports = $this->api_model->list_user_report($suid);
+            $this->add_status($reports);
             $this->output->set_output(json_encode($reports));
         }
     }
@@ -200,6 +202,7 @@ class Api extends CI_Controller {
         } else {
             $suid = $this->check_login();
             $reports = $this->api_model->list_repairer_report($suid);
+            $this->add_status($reports);
             $this->output->set_output(json_encode($reports));
         }
     }
@@ -211,6 +214,7 @@ class Api extends CI_Controller {
             $this->error_message("incorrect page argument");
         } else {
             $report_info = $this->api_model->check_report($report_id);
+            $this->add_status($report_info);
             $this->output->set_output(json_encode($report_info));
         }
     }
@@ -246,12 +250,18 @@ class Api extends CI_Controller {
 
     public function list_position()
     {
-        $this->output->set_output(json_encode($this->api_model->list_position()));
+
+        $result = $this->api_model->list_psition();
+        $this->add_status($result);
+
+        $this->output->set_output($result);
     }
 
     public function list_type()
     {
-        $this->output->set_output(json_encode($this->api_model->list_type()));
+        $result = $this->api_model->list_type();
+        $this->add_status($result);
+        $this->output->set_output(json_encode($result));
     }
 
     public function finish_report($report_id)
@@ -335,8 +345,37 @@ class Api extends CI_Controller {
 
     public function list_unaccept_report()
     {
-        $this->output->set_output(json_encode($this->api_model->list_unaccpet()));
+        $result = $this->api_model->list_unaccept();
+        $this->add_status($result);
+        $this->output->set_output($result);
     }
+
+    public function check_user($id)
+    {
+        $result = $this->api_model->check_user($id);
+        if (!$result){
+            $this->error_message("User do not exist");
+            return;
+        }
+        $this->add_status($result);
+        $this->output->set_output(json_encode($result));
+    }
+
+    public function check_repairer($id)
+    {
+        if (!isset($id) or !is_numeric($id)){
+            $this->error_message("id is an integer");
+            return;
+        }
+        $result = $this->api_model->check_repairer($id);
+        if (!$result){
+            $this->error_message("Repairer do not exist");
+            return;
+        }
+        $this->add_status($result);
+        $this->output->set_output(json_encode($result));
+    }
+
 
     public function debug()
     {
@@ -374,4 +413,11 @@ class Api extends CI_Controller {
     {
         $this->output->set_output(json_encode(array('status' => '0', 'error' => $error)));
     }
+
+    private function add_status(&$output)
+    {
+        $output = array('status'=>'1','info'=>$output);
+    }
+
+
 }

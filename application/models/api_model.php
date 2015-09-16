@@ -90,6 +90,16 @@ class Api_model extends CI_Model {
         return $this->report_url_fixer($this->db->get_where('report',array('report_status'=>'0'))->result());
     }
 
+    public function check_user($id)
+    {
+        return $this->db->get_where('users',array('id'=>$id))->result();
+    }
+
+    public function check_repairer($id)
+    {
+        return $this->db->get_where('repairer',array('id'=>$id))->result();
+    }
+
     private function report_url_fixer($report_list)
     {
         $url_prefix = "http://crashreport-picture.stor.sinaapp.com/";

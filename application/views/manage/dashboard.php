@@ -48,10 +48,10 @@
     <div class="row">
         <div class="col-sm-3 col-md-2 sidebar">
             <ul class="nav nav-sidebar">
-                <li class="active"><a href="#">Overview <span class="sr-only">(current)</span></a></li>
-                <li><a href="#">Reports</a></li>
-                <li><a href="#">Analytics</a></li>
-                <li><a href="#">Export</a></li>
+                <li class="active"><a href="#">总览<span class="sr-only">(current)</span></a></li>
+                <li><a href="#">报告</a></li>
+                <li><a href="#">维修人员</a></li>
+                <li><a href="#">用户</a></li>
             </ul>
             <ul class="nav nav-sidebar">
                 <li><a href="">Nav item</a></li>

@@ -38,7 +38,6 @@ arugment : ['user_login':'','user_passwd':'','user_nickname':'','user_tel':'']
 
 response : response : ['status';'successed|failed'[, 'error':'error if exsit']]
 
-
 ####create_report()
 
 method : POST
@@ -67,6 +66,18 @@ arugment : ['report_id':'','comment_content':'']
 
 response : status json or error message
 
+
+####check_user
+
+description : check a user
+
+method : GET
+
+arugment : ['id':'']
+
+example : url/api/check_user/1
+
+response : status json and info
 
 ***************************************************
 
@@ -106,6 +117,18 @@ arugment : ['report_id':'']
 example : url/api/finish_report/1
 
 response : status json or error message
+
+####check_repairer
+
+description : check a repairer
+
+method : GET
+
+arugment : ['id':'']
+
+example : url/api/repairer/1
+
+response : status json and info
 
 *************************************************
 

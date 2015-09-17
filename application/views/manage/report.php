@@ -7,7 +7,7 @@
     <meta name="description" content="">
     <meta name="author" content="">
 
-    <title>ManagePage</title>
+    <title>ReportPage</title>
 
     <!-- Bootstrap core CSS -->
     <link href="http://cdn.bootcss.com/bootstrap/3.3.5/css/bootstrap.min.css" rel="stylesheet">
@@ -27,7 +27,8 @@
 <nav class="navbar navbar-inverse navbar-fixed-top">
     <div class="container-fluid">
         <div class="navbar-header">
-            <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#navbar" aria-expanded="false" aria-controls="navbar">
+            <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#navbar"
+                    aria-expanded="false" aria-controls="navbar">
                 <span class="sr-only">Toggle navigation</span>
                 <span class="icon-bar"></span>
                 <span class="icon-bar"></span>
@@ -48,8 +49,8 @@
     <div class="row">
         <div class="col-sm-3 col-md-2 sidebar">
             <ul class="nav nav-sidebar">
-                <li class="active"><a href="/manage/index">总览<span class="sr-only">(current)</span></a></li>
-                <li><a href="/manage/report">报告</a></li>
+                <li><a href="/manage/index">总览<span class="sr-only">(current)</span></a></li>
+                <li class="active"><a href="/manage/report">报告</a></li>
                 <li><a href="/manage/repairer">维修人员</a></li>
                 <li><a href="/manage/user">用户</a></li>
             </ul>
@@ -67,28 +68,9 @@
             </ul>
         </div>
         <div class="col-sm-9 col-sm-offset-3 col-md-10 col-md-offset-2 main">
-            <h1 class="page-header">总览</h1>
 
-            <div class="row placeholders">
-                <div class="col-xs-6 col-sm-3 placeholder">
-                    <h3><?php echo $report_count['report'];?></h3>
-                    <span class="text-muted">24小时内报修数</span>
-                </div>
-                <div class="col-xs-6 col-sm-3 placeholder">
-                    <h3><?php echo $report_count['report_accept'];?></h3>
-                    <span class="text-muted">正在处理的报修</span>
-                </div>
-                <div class="col-xs-6 col-sm-3 placeholder">
-                    <h3><?php echo $report_count['report_finish'];?></h3>
-                    <span class="text-muted">24小时内完成的报修数</span>
-                </div>
-                <div class="col-xs-6 col-sm-3 placeholder">
-                    <h3><?php echo $report_count['report_all'];?></h3>
-                    <span class="text-muted">历史总保修数</span>
-                </div>
-            </div>
+            <h2 class="sub-header">维修请求</h2>
 
-            <h2 class="sub-header">最近提交的维修请求</h2>
             <div class="table-responsive">
                 <table class="table table-striped">
                     <thead>
@@ -96,34 +78,37 @@
                         <th>#</th>
                         <th>故障地点</th>
                         <th>故障类型</th>
+                        <th>故障状态</th>
                         <th>故障详情</th>
                         <th>故障相片</th>
                         <th>故障提交者</th>
                     </tr>
                     </thead>
                     <tbody>
-                    <?php foreach($reports as $report): ?>
+                    <?php $status_map = array('0' => "未接受", "1" => "已接受", "2" => "已完成"); ?>
+                    <?php foreach ($reports as $report): ?>
                         <tr>
-                            <td><?= $report->id?></td>
-                            <td><?= $report->report_pos;?></td>
-                            <td><?= $report->report_type;?></td>
-                            <td><?= $report->report_info;?></td>
-                            <td><?= '<a href="http://crashreport-picture.stor.sinaapp.com/'.$report->report_picurl . '">点击查看' . '</a>' ;?></td>
-                            <td><?= $report->report_reporter;?></td>
+                            <td><?= $report->id ?></td>
+                            <td><?= $report->report_pos; ?></td>
+                            <td><?= $report->report_type; ?></td>
+                            <td><?= $status_map[strval($report->report_status)]; ?></td>
+                            <td><?= $report->report_info; ?></td>
+                            <td><?= '<a href="http://crashreport-picture.stor.sinaapp.com/' . $report->report_picurl . '">点击查看' . '</a>'; ?></td>
+                            <td><?= $report->report_reporter; ?></td>
                         </tr>
                     <?php endforeach; ?>
                     </tbody>
                 </table>
             </div>
+
         </div>
     </div>
-</div>
 
-<!-- Bootstrap core JavaScript
-================================================== -->
-<!-- Placed at the end of the document so the pages load faster -->
-<script src="http://cdn.bootcss.com/jquery/1.11.3/jquery.min.js"></script>
-<script src="http://cdn.bootcss.com/bootstrap/3.3.5/js/bootstrap.min.js"></script>
-<!-- Just to make our placeholder images work. Don't actually copy the next line! -->
+    <!-- Bootstrap core JavaScript
+    ============================================== -->
+    <!-- Placed at the end of the document so the pages load faster -->
+    <script src="http://cdn.bootcss.com/jquery/1.11.3/jquery.min.js"></script>
+    <script src="http://cdn.bootcss.com/bootstrap/3.3.5/js/bootstrap.min.js"></script>
+    <!-- Just to make our placeholder images work. Don't actually copy the next line! -->
 </body>
 </html>

@@ -251,10 +251,10 @@ class Api extends CI_Controller {
     public function list_position()
     {
 
-        $result = $this->api_model->list_psition();
+        $result = $this->api_model->list_position();
         $this->add_status($result);
 
-        $this->output->set_output($result);
+        $this->output->set_output(json_encode($result));
     }
 
     public function list_type()

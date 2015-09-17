@@ -40,6 +40,7 @@
 
 $route['default_controller'] = "api";
 $route['404_override'] = '';
+$route['manage/edit/(:any)/(:num)'] = "manage/edit/$1/$2";
 
 
 /* End of file routes.php */

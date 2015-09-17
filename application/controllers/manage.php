@@ -97,17 +97,18 @@ class Manage extends CI_Controller {
 
     public function edit($type,$id)
     {
-        $accept_type = array('report','repairer','user');
+        $accept_type = array('report','repairer','user','position','type');
+        $active_class = array();
+        foreach($accept_type as $key)
+            $active_class[$key] = "";
 
         if(!isset($type) or !isset($id) or !is_numeric($id)
                          or !in_array($type,$accept_type)){
             $this->jump_back();
             return;
         }
-
-        print_r($this->manage_model->get_field_data($type));
-
-
+        $active_class[$type] = 'class="active"';
+        $this->load->view('manage/edit',array('username'=>$this->username,'active_class'=>$active_class));
     }
 
 
@@ -129,7 +130,8 @@ class Manage extends CI_Controller {
 
     public function debug()
     {
-        print_r($this->manage_model->get_report_count());
+        echo $this->auth_lib->check_suid();
+        echo $this->auth_lib->check_type();
     }
 
     private function jump_back()

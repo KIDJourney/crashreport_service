@@ -14,11 +14,27 @@ class Api_model extends CI_Model {
         return $this->db->insert('report', $insert_data);
     }
 
-    public function list_report($page = 1)
+    public function list_report()
     {
-        if ($page <= 0)
-            $page = 1;
-        return $this->report_url_fixer($this->db->get('report', $page * 10, ($page - 1) * 10)->result());
+        $sql = <<<SQL
+                select r.id , p.pos_name as report_pos , r.report_status ,
+        t.type_name as report_type , r.report_info , re.repairer_name as report_fixerid,
+        r.report_picurl , u.user_nickname as report_reporter , r.report_createat ,
+        r.report_acceptat , r.report_endat , c.comment_content
+        FROM report r
+        LEFT JOIN position p
+        ON r.report_pos = p.id
+        LEFT JOIN report_type t
+        ON r.report_type = t.id
+        LEFT JOIN users u
+        ON r.report_reporter = u.id
+        LEFT JOIN repairer re
+        ON r.report_fixerid = re.id
+        LEFT JOIN comment c
+        ON r.id = c.comment_report_id
+SQL;
+        $query_result = $this->report_url_fixer($this->db->query($sql)->result());
+        return $query_result;
     }
 
     public function add_user($user_data)
@@ -28,6 +44,20 @@ class Api_model extends CI_Model {
 
     public function check_report($report_id)
     {
+        $sql = <<<SQL
+        select r.id , p.pos_name as report_pos , r.report_status ,  t.type_name as report_type ,
+        r.report_info , r.report_picurl , u.user_nickname as report_reporter , c.comment_content
+        FROM report r
+        LEFT JOIN position p
+        ON r.report_pos = p.id
+        LEFT JOIN report_type t
+        ON r.report_type = t.id
+        LEFT JOIN users u
+        ON r.report_reporter = u.id
+        LEFT JOIN comment c
+        ON r.id = c.comment_report_id
+SQL;
+
         $query_result = $this->report_url_fixer($this->db->get_where('report', array('id' => $report_id))->result());
         return $query_result ? $query_result[0] : false;
     }
@@ -69,12 +99,51 @@ class Api_model extends CI_Model {
 
     public function list_user_report($user_id)
     {
-        return $this->report_url_fixer($this->db->get_where('report', array('report_reporter' => $user_id))->result());
+
+        $sql = <<<SQL
+                select r.id , p.pos_name as report_pos , r.report_status ,
+        t.type_name as report_type , r.report_info , re.repairer_name as report_fixerid,
+        r.report_picurl , u.user_nickname as report_reporter , r.report_createat ,
+        r.report_acceptat , r.report_endat , c.comment_content
+        FROM report r
+        LEFT JOIN position p
+        ON r.report_pos = p.id
+        LEFT JOIN report_type t
+        ON r.report_type = t.id
+        LEFT JOIN users u
+        ON r.report_reporter = u.id
+        LEFT JOIN repairer re
+        ON r.report_fixerid = re.id
+        LEFT JOIN comment c
+        ON r.id = c.comment_report_id
+        where r.id = $user_id
+SQL;
+        $query_result = $this->report_url_fixer($this->db->query($sql)->result());
+        return $query_result;
     }
 
     public function list_repairer_report($repairer_id)
     {
-        return $this->report_url_fixer($this->db->get_where('report', array('repairer_fixerid' => $repairer_id))->result());
+        $sql = <<<SQL
+        select r.id , p.pos_name as report_pos , r.report_status ,
+        t.type_name as report_type , r.report_info , re.repairer_name as report_fixerid,
+        r.report_picurl , u.user_nickname as report_reporter , r.report_createat ,
+        r.report_acceptat , r.report_endat , c.comment_content
+        FROM report r
+        LEFT JOIN position p
+        ON r.report_pos = p.id
+        LEFT JOIN report_type t
+        ON r.report_type = t.id
+        LEFT JOIN users u
+        ON r.report_reporter = u.id
+        LEFT JOIN repairer re
+        ON r.report_fixerid = re.id
+        LEFT JOIN comment c
+        ON r.id = c.comment_report_id
+        where r.report_fixerid = $repairer_id
+SQL;
+        $query_result = $this->report_url_fixer($this->db->query($sql)->result());
+        return $query_result;
     }
 
     public function add_comment($reporter_id, $report_id, $comment_content)
@@ -87,7 +156,26 @@ class Api_model extends CI_Model {
 
     public function list_unaccpet()
     {
-        return $this->report_url_fixer($this->db->get_where('report',array('report_status'=>'0'))->result());
+        $sql = <<<SQL
+                select r.id , p.pos_name as report_pos , r.report_status ,
+        t.type_name as report_type , r.report_info , re.repairer_name as report_fixerid,
+        r.report_picurl , u.user_nickname as report_reporter , r.report_createat ,
+        r.report_acceptat , r.report_endat , c.comment_content
+        FROM report r
+        LEFT JOIN position p
+        ON r.report_pos = p.id
+        LEFT JOIN report_type t
+        ON r.report_type = t.id
+        LEFT JOIN users u
+        ON r.report_reporter = u.id
+        LEFT JOIN repairer re
+        ON r.report_fixerid = re.id
+        LEFT JOIN comment c
+        ON r.id = c.comment_report_id
+        where r.report_status = '0'
+SQL;
+        $query_result = $this->report_url_fixer($this->db->query($sql)->result());
+        return $query_result;
     }
 
     public function check_user($id)

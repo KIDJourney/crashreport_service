@@ -48,7 +48,7 @@
     <div class="row">
         <div class="col-sm-3 col-md-2 sidebar">
             <ul class="nav nav-sidebar">
-                <li><a href="/manage/index">报告<span class="sr-only">(current)</span></a></li>
+                <li><a href="/manage/index">总览<span class="sr-only">(current)</span></a></li>
                 <li><a href="/manage/report">报告</a></li>
                 <li><a href="/manage/repairer">维修人员</a></li>
                 <li><a href="/manage/user">用户</a></li>

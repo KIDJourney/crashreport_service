@@ -225,12 +225,14 @@ class Api extends CI_Controller {
             $this->error_message("argument error");
             return;
         }
+
         if (!$this->check_access('repairer')) {
             $this->error_message("You don't have access");
         }
 
         $repairer_id = $this->auth_lib->check_suid();
         $report_info = $this->api_model->check_report($report_id);
+
         if (!$report_info) {
             $this->error_message("report doesn't exist");
             return;
@@ -379,7 +381,9 @@ class Api extends CI_Controller {
 
     public function debug()
     {
-        //pass
+        echo $this->auth_lib->check_suid();
+        echo '<br>';
+        echo $this->auth_lib->check_type();
     }
 
 
@@ -416,7 +420,10 @@ class Api extends CI_Controller {
 
     private function add_status(&$output)
     {
-        $output = array('status'=>'1','info'=>$output);
+        if ($output) {
+            $output = array('status' => '1', 'info' => $output);
+        }
+        else $output = array('status'=>'0','error'=>'not found or database error');
     }
 
 

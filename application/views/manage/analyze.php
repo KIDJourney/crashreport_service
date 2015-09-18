@@ -27,7 +27,8 @@
 <nav class="navbar navbar-inverse navbar-fixed-top">
     <div class="container-fluid">
         <div class="navbar-header">
-            <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#navbar" aria-expanded="false" aria-controls="navbar">
+            <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#navbar"
+                    aria-expanded="false" aria-controls="navbar">
                 <span class="sr-only">Toggle navigation</span>
                 <span class="icon-bar"></span>
                 <span class="icon-bar"></span>
@@ -68,6 +69,7 @@
         </div>
         <div class="col-sm-9 col-sm-offset-3 col-md-10 col-md-offset-2 main">
             <h2 class="sub-header">状态分析</h2>
+
             <div class="table-responsive">
                 <table class="table table-striped">
                     <thead>
@@ -78,6 +80,7 @@
                         <th>故障详情</th>
                         <th>故障相片</th>
                         <th>故障提交者</th>
+                        <th>操作</th>
                     </tr>
                     </thead>
                     <tbody>

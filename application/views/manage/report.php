@@ -82,6 +82,7 @@
                         <th>故障详情</th>
                         <th>故障相片</th>
                         <th>故障提交者</th>
+                        <th>操作</th>
                     </tr>
                     </thead>
                     <tbody>
@@ -95,6 +96,10 @@
                             <td><?= $report->report_info; ?></td>
                             <td><?= '<a href="http://crashreport-picture.stor.sinaapp.com/' . $report->report_picurl . '">点击查看' . '</a>'; ?></td>
                             <td><?= $report->report_reporter; ?></td>
+                            <td>
+                                <a class="btn btn-default" href="<?= base_url('manage/edit/report/'.$report->id)?>" role="button">编辑</a>
+                                <a class="btn btn-warning" href="<?= base_url('manage/delete/report/'.$report->id)?>" role="button">编辑</a>
+                            </td>
                         </tr>
                     <?php endforeach; ?>
                     </tbody>

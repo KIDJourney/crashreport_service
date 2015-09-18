@@ -116,7 +116,7 @@ SQL;
         ON r.report_fixerid = re.id
         LEFT JOIN comment c
         ON r.id = c.comment_report_id
-        where r.id = $user_id
+        where u.id = $user_id
 SQL;
         $query_result = $this->report_url_fixer($this->db->query($sql)->result());
         return $query_result;

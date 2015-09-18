@@ -27,7 +27,8 @@
 <nav class="navbar navbar-inverse navbar-fixed-top">
     <div class="container-fluid">
         <div class="navbar-header">
-            <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#navbar" aria-expanded="false" aria-controls="navbar">
+            <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#navbar"
+                    aria-expanded="false" aria-controls="navbar">
                 <span class="sr-only">Toggle navigation</span>
                 <span class="icon-bar"></span>
                 <span class="icon-bar"></span>
@@ -68,23 +69,26 @@
         </div>
         <div class="col-sm-9 col-sm-offset-3 col-md-10 col-md-offset-2 main">
             <h2 class="sub-header">校园地点管理</h2>
+
             <div class="table-responsive">
                 <table class="table table-striped">
                     <thead>
                     <tr>
                         <th>#</th>
                         <th>地点</th>
-                        <th></th>
-                        <th></th>
+                        <th>操作</th>
                     </tr>
                     </thead>
                     <tbody>
-                        <?php foreach($positions as $position): ?>
-                            <tr>
-                                <td><?=$position->id;?></td>
-                                <td><?=$position->pos_name;?></td>
+                    <?php foreach ($positions as $position): ?>
+                    <tr>
+                        <td><?= $position->id; ?></td>
+                        <td><?= $position->pos_name; ?></td>
+                        <td>
+                            <a class="btn btn-default" href="<?= base_url('manage/edit/report/'.$position->id)?>" role="button">编辑</a>
+                        </td>
                         <?php endforeach; ?>
-                            </tr>
+                    </tr>
                     </tbody>
                 </table>
             </div>

@@ -77,8 +77,7 @@
                         <th>用户昵称</th>
                         <th>用户电话</th>
                         <th>注册时间</th>
-                    </tr>
-                    </thead>
+ <th>操作</th>                     </tr>                     </thead>
                     <tbody>
                     <?php foreach($users as $user): ?>
                         <tr>
@@ -87,6 +86,10 @@
                             <td><?= $user->user_nickname;?></td>
                             <td><?= $user->user_tel;?></td>
                             <td><?= $user->user_registered;?></td>
+                            <td>
+                                <a class="btn btn-default" href="<?= base_url('manage/edit/report/'.$user->id)?>" role="button">编辑</a>
+                                <a class="btn btn-warning" href="<?= base_url('manage/delete/report/'.$user->id)?>" role="button">编辑</a>
+                            </td>
                         </tr>
                     <?php endforeach; ?>
                     </tbody>

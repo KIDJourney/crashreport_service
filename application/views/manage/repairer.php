@@ -27,7 +27,8 @@
 <nav class="navbar navbar-inverse navbar-fixed-top">
     <div class="container-fluid">
         <div class="navbar-header">
-            <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#navbar" aria-expanded="false" aria-controls="navbar">
+            <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#navbar"
+                    aria-expanded="false" aria-controls="navbar">
                 <span class="sr-only">Toggle navigation</span>
                 <span class="icon-bar"></span>
                 <span class="icon-bar"></span>
@@ -68,6 +69,7 @@
         </div>
         <div class="col-sm-9 col-sm-offset-3 col-md-10 col-md-offset-2 main">
             <h2 class="sub-header">维修人员</h2>
+
             <div class="table-responsive">
                 <table class="table table-striped">
                     <thead>
@@ -75,14 +77,19 @@
                         <th>#</th>
                         <th>修理人员姓名</th>
                         <th>修理人员电话</th>
+                        <th>操作</th>
                     </tr>
                     </thead>
                     <tbody>
-                    <?php foreach($repairers as $repairer): ?>
+                    <?php foreach ($repairers as $repairer): ?>
                         <tr>
-                            <td><?= $repairer->id;?></td>
-                            <td><?= $repairer->repairer_name;?></td>
-                            <td><?= $repairer->repairer_tel;?></td>
+                            <td><?= $repairer->id; ?></td>
+                            <td><?= $repairer->repairer_name; ?></td>
+                            <td><?= $repairer->repairer_tel; ?></td>
+                            <td>
+                                <a class="btn btn-default" href="<?= base_url('manage/edit/report/' . $repairer->id) ?>" role="button">编辑</a>
+                                <a class="btn btn-warning" href="<?= base_url('manage/delete/report/' . $repairer->id) ?>" role="button">编辑</a>
+                            </td>
                         </tr>
                     <?php endforeach; ?>
                     </tbody>

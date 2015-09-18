@@ -27,7 +27,8 @@
 <nav class="navbar navbar-inverse navbar-fixed-top">
     <div class="container-fluid">
         <div class="navbar-header">
-            <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#navbar" aria-expanded="false" aria-controls="navbar">
+            <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#navbar"
+                    aria-expanded="false" aria-controls="navbar">
                 <span class="sr-only">Toggle navigation</span>
                 <span class="icon-bar"></span>
                 <span class="icon-bar"></span>
@@ -71,24 +72,25 @@
 
             <div class="row placeholders">
                 <div class="col-xs-6 col-sm-3 placeholder">
-                    <h3><?php echo $report_count['report'];?></h3>
+                    <h3><?php echo $report_count['report']; ?></h3>
                     <span class="text-muted">24小时内报修数</span>
                 </div>
                 <div class="col-xs-6 col-sm-3 placeholder">
-                    <h3><?php echo $report_count['report_accept'];?></h3>
+                    <h3><?php echo $report_count['report_accept']; ?></h3>
                     <span class="text-muted">正在处理的报修</span>
                 </div>
                 <div class="col-xs-6 col-sm-3 placeholder">
-                    <h3><?php echo $report_count['report_finish'];?></h3>
+                    <h3><?php echo $report_count['report_finish']; ?></h3>
                     <span class="text-muted">24小时内完成的报修数</span>
                 </div>
                 <div class="col-xs-6 col-sm-3 placeholder">
-                    <h3><?php echo $report_count['report_all'];?></h3>
+                    <h3><?php echo $report_count['report_all']; ?></h3>
                     <span class="text-muted">历史总保修数</span>
                 </div>
             </div>
 
             <h2 class="sub-header">最近提交的维修请求</h2>
+
             <div class="table-responsive">
                 <table class="table table-striped">
                     <thead>
@@ -102,14 +104,14 @@
                     </tr>
                     </thead>
                     <tbody>
-                    <?php foreach($reports as $report): ?>
+                    <?php foreach ($reports as $report): ?>
                         <tr>
-                            <td><?= $report->id?></td>
-                            <td><?= $report->report_pos;?></td>
-                            <td><?= $report->report_type;?></td>
-                            <td><?= $report->report_info;?></td>
-                            <td><?= '<a href="http://crashreport-picture.stor.sinaapp.com/'.$report->report_picurl . '">点击查看' . '</a>' ;?></td>
-                            <td><?= $report->report_reporter;?></td>
+                            <td><?= $report->id ?></td>
+                            <td><?= $report->report_pos; ?></td>
+                            <td><?= $report->report_type; ?></td>
+                            <td><?= $report->report_info; ?></td>
+                            <td><?= '<a href="http://crashreport-picture.stor.sinaapp.com/' . $report->report_picurl . '">点击查看' . '</a>'; ?></td>
+                            <td><?= $report->report_reporter; ?></td>
                         </tr>
                     <?php endforeach; ?>
                     </tbody>

@@ -27,7 +27,8 @@
 <nav class="navbar navbar-inverse navbar-fixed-top">
     <div class="container-fluid">
         <div class="navbar-header">
-            <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#navbar" aria-expanded="false" aria-controls="navbar">
+            <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#navbar"
+                    aria-expanded="false" aria-controls="navbar">
                 <span class="sr-only">Toggle navigation</span>
                 <span class="icon-bar"></span>
                 <span class="icon-bar"></span>
@@ -68,6 +69,7 @@
         </div>
         <div class="col-sm-9 col-sm-offset-3 col-md-10 col-md-offset-2 main">
             <h2 class="sub-header">报修类型管理</h2>
+
             <div class="table-responsive">
                 <table class="table table-striped">
                     <thead>
@@ -76,15 +78,19 @@
                         <th>类型名称</th>
                         <th style="display: none;"></th>
                         <th style="display: none;"></th>
+                        <th>操作</th>
                     </tr>
                     </thead>
                     <tbody>
-                        <?php foreach($types as $type): ?>
-                            <tr>
-                                <td><?=$type->id?></td>
-                                <td><?=$type->type_name?></td>
-                            </tr>
-                        <?php endforeach; ?>
+                    <?php foreach ($types as $type): ?>
+                        <tr>
+                            <td><?= $type->id ?></td>
+                            <td><?= $type->type_name ?></td>
+                            <td>
+                                <a class="btn btn-default" href="<?= base_url('manage/edit/report/'.$type->id)?>" role="button">编辑</a>
+                            </td>
+                        </tr>
+                    <?php endforeach; ?>
                     </tbody>
                 </table>
             </div>

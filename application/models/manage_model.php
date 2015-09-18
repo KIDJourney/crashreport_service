@@ -75,9 +75,23 @@ SQL;
         return $this->db->get('report_type')->result();
     }
 
+    public function check_report($id)
+    {
+        return $this->db->get_where('report', array('id'=>$id))->result();
+    }
+
+    public function check_user($id)
+    {
+        return $this->db->get_where('user', array('id'=>$id))->result();
+    }
+
+    public function check_repairer($id)
+    {
+        return $this->db->get_where('repairer', array('id'=>$id))->result();
+    }
+
     public function get_field_data($table_name)
     {
         return $this->db->list_fields($table_name);
     }
-
 }

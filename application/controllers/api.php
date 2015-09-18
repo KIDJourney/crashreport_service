@@ -423,7 +423,9 @@ class Api extends CI_Controller {
         if ($output) {
             $output = array('status' => '1', 'info' => $output);
         }
-        else $output = array('status'=>'0','error'=>'not found or database error');
+        else{
+            $output = array('status'=>'0','error'=>'No result found');
+        }
     }
 
 

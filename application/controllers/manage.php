@@ -107,8 +107,34 @@ class Manage extends CI_Controller {
             $this->jump_back();
             return;
         }
+
+        if ($this->input->post()){
+
+            print_r($this->input->post());
+            return;
+
+        }
+
         $active_class[$type] = 'class="active"';
-        $this->load->view('manage/edit',array('username'=>$this->username,'active_class'=>$active_class));
+
+        switch ($type) {
+            case 'report':
+                $report_type = $this->manage_model->get_type();
+                $position = $this->manage_model->get_position();
+                $data = $this->manage_model->check_report($id);
+                $data = $data[0];
+                $this->load->view('manage/edit',array('username'=>$this->username,'active_class'=>$active_class));
+                $this->load->view('manage/form/report',array('types'=>$report_type,'positions'=>$position,'data'=>$data,
+                                                             'report_status'=>array("$data->report_status"=>'checked')));
+                break;
+            case 'repairer':
+
+                break;
+            case 'user':
+
+                break;
+
+        }
     }
 
 

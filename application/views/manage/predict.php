@@ -11,10 +11,10 @@ head>
 
 <title>PredictPage</title>
 
-<!-- Bootstrap core CSS -->
+
 <link href="http://cdn.bootcss.com/bootstrap/3.3.5/css/bootstrap.min.css" rel="stylesheet">
 
-<!-- Custom styles for this template -->
+
 <link href="../../../static/dashboard.css" rel="stylesheet">
 
 <!-- Just for debugging purposes. Don't actually copy these 2 lines! -->

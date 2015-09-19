@@ -1,8 +1,6 @@
 <!DOCTYPE html>
 <html lang="zh-CN">
-<
-
-head>
+<head>
 <meta charset="utf-8">
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
 <meta name="viewport" content="width=device-width, initial-scale=1">
@@ -11,10 +9,10 @@ head>
 
 <title>PredictPage</title>
 
-<!-- Bootstrap core CSS -->
+
 <link href="http://cdn.bootcss.com/bootstrap/3.3.5/css/bootstrap.min.css" rel="stylesheet">
 
-<!-- Custom styles for this template -->
+
 <link href="../../../static/dashboard.css" rel="stylesheet">
 
 <!-- Just for debugging purposes. Don't actually copy these 2 lines! -->
@@ -68,8 +66,6 @@ head>
                 <li><a href="/manage/predict">损坏预测</a></li>
                 <li><a href="/manage/summary">报告生成</a></li>
             </ul>
-        </div>
-        <div class="col-sm-9 col-sm-offset-3 col-md-10 col-md-offset-2 main">
         </div>
     </div>
 </div>

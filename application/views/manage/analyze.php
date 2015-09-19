@@ -9,16 +9,11 @@
 
     <title>AnalyzePage</title>
 
-    <!-- Bootstrap core CSS -->
+
     <link href="http://cdn.bootcss.com/bootstrap/3.3.5/css/bootstrap.min.css" rel="stylesheet">
+    <script src="//cdn.bootcss.com/canvasjs/1.7.0/canvasjs.min.js"></script>
 
-    <!-- Custom styles for this template -->
     <link href="../../../static/dashboard.css" rel="stylesheet">
-
-    <!-- Just for debugging purposes. Don't actually copy these 2 lines! -->
-
-    <script src="http://cdn.bootcss.com/html5shiv/3.7.2/html5shiv.min.js"></script>
-    <script src="http://cdn.bootcss.com/respond.js/1.4.2/respond.min.js"></script>
 
 </head>
 
@@ -68,35 +63,47 @@
             </ul>
         </div>
         <div class="col-sm-9 col-sm-offset-3 col-md-10 col-md-offset-2 main">
-            <h2 class="sub-header">状态分析</h2>
+          <h2 class="sub-header">状态分析</h2>
 
-            <div class="table-responsive">
-                <table class="table table-striped">
-                    <thead>
-                    <tr>
-                        <th>#</th>
-                        <th>故障地点</th>
-                        <th>故障类型</th>
-                        <th>故障详情</th>
-                        <th>故障相片</th>
-                        <th>故障提交者</th>
-                        <th>操作</th>
-                    </tr>
-                    </thead>
-                    <tbody>
-
-                    </tbody>
-                </table>
-            </div>
         </div>
     </div>
 </div>
 
-<!-- Bootstrap core JavaScript
-================================================== -->
-<!-- Placed at the end of the document so the pages load faster -->
 <script src="http://cdn.bootcss.com/jquery/1.11.3/jquery.min.js"></script>
 <script src="http://cdn.bootcss.com/bootstrap/3.3.5/js/bootstrap.min.js"></script>
-<!-- Just to make our placeholder images work. Don't actually copy the next line! -->
+<script type="application/javascript">
+    window.onload = function () {
+        var chart = new CanvasJS.Chart("chartContainer",
+            {
+
+                title:{
+                    text: "Earthquakes - per month"
+                },
+                data: [
+                    {
+                        type: "line",
+
+                        dataPoints: [
+                            { x: new Date(2012, 00, 1), y: 450 },
+                            { x: new Date(2012, 01, 1), y: 414 },
+                            { x: new Date(2012, 02, 1), y: 520 },
+                            { x: new Date(2012, 03, 1), y: 460 },
+                            { x: new Date(2012, 04, 1), y: 450 },
+                            { x: new Date(2012, 05, 1), y: 500 },
+                            { x: new Date(2012, 06, 1), y: 480 },
+                            { x: new Date(2012, 07, 1), y: 480 },
+                            { x: new Date(2012, 08, 1), y: 410 },
+                            { x: new Date(2012, 09, 1), y: 500 },
+                            { x: new Date(2012, 10, 1), y: 480 },
+                            { x: new Date(2012, 11, 1), y: 510 }
+                        ]
+                    }
+                ]
+            });
+
+        chart.render();
+    }
+</script>
 </body>
 </html>
+

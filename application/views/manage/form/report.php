@@ -1,10 +1,13 @@
 <div class="col-sm-9 col-sm-offset-3 col-md-10 col-md-offset-2 main">
-    <from action="<?php echo current_url(); ?>" method="post">
+    <h2 class="sub-header">编辑报告</h2>
+
+    <form action="<?php echo current_url(); ?>" method="post">
         <div class="form-group">
             <label>故障地点</label>
             <select name="report_pos" class="form-control">
                 <?php foreach ($positions as $position): ?>
-                    <option value="<?=$position->id; ?>"><?= $position->pos_name; ?></option>
+                    <option
+                        value="<?= $position->id; ?>" <?php if ($data->report_pos == $position->id) echo 'selected="selected"'; ?>><?= $position->pos_name; ?></option>
                 <?php endforeach; ?>
             </select>
         </div>
@@ -16,7 +19,8 @@
             <label>故障类型</label>
             <select name="report_type" class="form-control">
                 <?php foreach ($types as $type): ?>
-                    <option value="<?= $type->id; ?>"><?= $type->type_name; ?></option>
+                    <option
+                        value="<?= $type->id; ?>" <?php if ($data->report_type == $type->id) echo 'selected="selected"'; ?>><?= $type->type_name; ?></option>
                 <?php endforeach; ?>
             </select>
         </div>
@@ -35,5 +39,10 @@
             </label>
         </div>
         <button type="submit" class="btn btn-default">Submit</button>
-    </from>
+        <?php if (isset($info)) { ?>
+            <div class="alert alert-info" role="alert">
+                <p><strong><?= $info ?></strong></p>
+            </div>
+        <?php } ?>
+    </form>
 </div>

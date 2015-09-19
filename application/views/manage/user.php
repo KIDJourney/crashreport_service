@@ -9,16 +9,13 @@
 
     <title>UserPage</title>
 
-    <!-- Bootstrap core CSS -->
+
     <link href="http://cdn.bootcss.com/bootstrap/3.3.5/css/bootstrap.min.css" rel="stylesheet">
 
-    <!-- Custom styles for this template -->
+
     <link href="../../../static/dashboard.css" rel="stylesheet">
 
-    <!-- Just for debugging purposes. Don't actually copy these 2 lines! -->
 
-    <script src="http://cdn.bootcss.com/html5shiv/3.7.2/html5shiv.min.js"></script>
-    <script src="http://cdn.bootcss.com/respond.js/1.4.2/respond.min.js"></script>
 
 </head>
 
@@ -87,8 +84,8 @@
                             <td><?= $user->user_tel;?></td>
                             <td><?= $user->user_registered;?></td>
                             <td>
-                                <a class="btn btn-default" href="<?= base_url('manage/edit/report/'.$user->id)?>" role="button">编辑</a>
-                                <a class="btn btn-warning" href="<?= base_url('manage/delete/report/'.$user->id)?>" role="button">编辑</a>
+                                <a class="btn btn-default" href="<?= base_url('manage/edit/user/'.$user->id)?>" role="button">编辑</a>
+                                <a class="btn btn-warning" href="<?= base_url('manage/delete/user/'.$user->id)?>" role="button">删除</a>
                             </td>
                         </tr>
                     <?php endforeach; ?>

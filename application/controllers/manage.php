@@ -2,7 +2,8 @@
 
 class Manage extends CI_Controller {
 
-    private $username ;
+    private $username;
+
     function __construct()
     {
         parent::__construct();
@@ -34,47 +35,48 @@ class Manage extends CI_Controller {
     public function report()
     {
         $reports = $this->manage_model->get_report();
-        $this->load->view('manage/report',array('username'=>$this->username,
-                                                'reports'=>$reports));
+        $this->load->view('manage/report', array('username' => $this->username,
+                                                 'reports'  => $reports));
     }
 
     public function repairer()
     {
         $repairers = $this->manage_model->get_repairer();
-        $this->load->view('manage/repairer',array('username'=>$this->username,'repairers'=>$repairers));
+        $this->load->view('manage/repairer', array('username' => $this->username, 'repairers' => $repairers));
     }
 
     public function user()
     {
         $users = $this->manage_model->get_user();
-        $this->load->view('manage/user',array('username'=>$this->username , 'users' => $users));
+        $this->load->view('manage/user', array('username' => $this->username, 'users' => $users));
     }
 
     public function position()
     {
         $positions = $this->manage_model->get_position();
-        $this->load->view('manage/position',array('username'=>$this->username,'positions'=>$positions));
+        $this->load->view('manage/position', array('username' => $this->username, 'positions' => $positions));
     }
 
     public function type()
     {
         $types = $this->manage_model->get_type();
-        $this->load->view('manage/type',array('username'=>$this->username,'types'=>$types));
+        $this->load->view('manage/type', array('username' => $this->username, 'types' => $types));
     }
 
     public function analyze()
     {
-        $this->load->view('manage/analyze',array('username'=>$this->username));
+        $chart_time_data = $this->manage_model->get_chart_time();
+        $this->load->view('manage/analyze', array('username' => $this->username,'charttime'=>$chart_time_data));
     }
 
     public function predict()
     {
-        $this->load->view('manage/predict',array('username'=>$this->username));
+        $this->load->view('manage/predict', array('username' => $this->username));
     }
 
     public function summary()
     {
-        $this->load->view('manage/summary',array('username'=>$this->username));
+        $this->load->view('manage/summary', array('username' => $this->username));
     }
 
     public function login()
@@ -95,45 +97,49 @@ class Manage extends CI_Controller {
         }
     }
 
-    public function edit($type,$id)
+    public function edit($type, $id)
     {
-        $accept_type = array('report','repairer','user','position','type');
+        $accept_type = array('report', 'repairer', 'user', 'position', 'type');
         $active_class = array();
-        foreach($accept_type as $key)
+        foreach ($accept_type as $key)
             $active_class[$key] = "";
 
-        if(!isset($type) or !isset($id) or !is_numeric($id)
-                         or !in_array($type,$accept_type)){
+        if (!isset($type) or !isset($id) or !is_numeric($id)
+            or !in_array($type, $accept_type)
+        ) {
             $this->jump_back();
             return;
         }
 
-        if ($this->input->post()){
-
-            print_r($this->input->post());
-            return;
-
-        }
-
         $active_class[$type] = 'class="active"';
 
-        switch ($type) {
-            case 'report':
+        if ($post_data = $this->input->post()) {
+            if ($type == 'report') {
+                $result = $this->manage_model->update($type, $id, $post_data) ? '更新成功' : '更新失败，请检查你的输入';
                 $report_type = $this->manage_model->get_type();
                 $position = $this->manage_model->get_position();
-                $data = $this->manage_model->check_report($id);
+                $data = $this->manage_model->check_type($type, $id);
                 $data = $data[0];
-                $this->load->view('manage/edit',array('username'=>$this->username,'active_class'=>$active_class));
-                $this->load->view('manage/form/report',array('types'=>$report_type,'positions'=>$position,'data'=>$data,
-                                                             'report_status'=>array("$data->report_status"=>'checked')));
-                break;
-            case 'repairer':
+                $this->load->view('manage/edit', array('username' => $this->username, 'active_class' => $active_class));
+                $this->load->view('manage/form/report', array('types'         => $report_type, 'positions' => $position, 'data' => $data,
+                                                              'report_status' => array("$data->report_status" => 'checked'),
+                                                              'info'          => $result));
+            } else {
+                $this->edit_post_handler($type,$id,$post_data,$active_class);
+                return ;
+            }
+        }
 
-                break;
-            case 'user':
-
-                break;
-
+        if ($type == 'report') {
+            $report_type = $this->manage_model->get_type();
+            $position = $this->manage_model->get_position();
+            $data = $this->manage_model->check_report($id);
+            $data = $data[0];
+            $this->load->view('manage/edit', array('username' => $this->username, 'active_class' => $active_class));
+            $this->load->view('manage/form/report', array('types'         => $report_type, 'positions' => $position, 'data' => $data,
+                                                          'report_status' => array("$data->report_status" => 'checked')));
+        } else {
+            $this->edit_load_form($type, $id, $active_class);
         }
     }
 
@@ -156,9 +162,26 @@ class Manage extends CI_Controller {
 
     public function debug()
     {
-        echo $this->auth_lib->check_suid();
-        echo $this->auth_lib->check_type();
+        $this->output->set_output(json_encode($this->manage_model->get_chart_time()));
     }
+
+    private function edit_load_form($type, $id, $active_class)
+    {
+        $data = $this->manage_model->check_type($type, $id);
+        $data = $data[0];
+        $this->load->view('manage/edit', array('username' => $this->username, 'active_class' => $active_class));
+        $this->load->view('manage/form/' . $type, array('data' => $data));
+    }
+
+    private function edit_post_handler($type,$id,$post_data,$active_class)
+    {
+        $result = $this->manage_model->update($type, $id, $post_data) ? '更新成功' : '更新失败，请检查你的输入';
+        $data = $this->manage_model->check_type($type, $id);
+        $data = $data[0];
+        $this->load->view('manage/edit', array('username' => $this->username, 'active_class' => $active_class));
+        $this->load->view('manage/form/'.$type, array('data' => $data, 'info' => $result));
+    }
+
 
     private function jump_back()
     {

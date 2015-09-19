@@ -88,7 +88,12 @@ class Api extends CI_Controller {
             return;
         }
 
-        if (!preg_match('/^[A-za-z0-9]{5,31}/', $user_data['user_login'])) {
+        if (!$user_data['user_nickname']){
+            $this->error_message("The nick name can't be empty");
+            return;
+        }
+
+        if (!preg_match('/^[A-za-z0-9]{5,13}/', $user_data['user_login'])) {
             $this->error_message("user name illegal");
             return;
         }

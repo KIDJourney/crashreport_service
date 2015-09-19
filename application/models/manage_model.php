@@ -75,6 +75,15 @@ SQL;
         return $this->db->get('report_type')->result();
     }
 
+    public function check_type($type,$id)
+    {
+        if ($type == 'user')
+            $type = 'users';
+        if ($type == 'type')
+            $type = 'report_type';
+        return $this->db->get_where($type,array('id'=>$id))->result();
+    }
+
     public function check_report($id)
     {
         return $this->db->get_where('report', array('id'=>$id))->result();
@@ -82,7 +91,7 @@ SQL;
 
     public function check_user($id)
     {
-        return $this->db->get_where('user', array('id'=>$id))->result();
+        return $this->db->get_where('users', array('id'=>$id))->result();
     }
 
     public function check_repairer($id)
@@ -93,5 +102,23 @@ SQL;
     public function get_field_data($table_name)
     {
         return $this->db->list_fields($table_name);
+    }
+
+    public function update($type,$id,$data)
+    {
+        if ($type=='user')
+            $type = 'users';
+        if ($type == 'type')
+            $type = 'report_type';
+        $this->db->where('id',$id);
+        return $this->db->update($type , $data);
+    }
+
+    public function get_chart_time()
+    {
+        $sql = "SELECT report_createat , count(*) as 'count'
+                from report
+                group by day(report_createat)";
+        return $this->db->query($sql)->result();
     }
 }

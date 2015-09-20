@@ -29,14 +29,14 @@ SQL;
     {
         $time = 24 * 60 * 60;
 
-        $report        = $this->db->query("SELECT COUNT(*) as num FROM report where
+        $report = $this->db->query("SELECT COUNT(*) as num FROM report where
             (report.report_status = 0 and (current_timestamp() - report.report_createat < $time))")->result();
         $report_accept = $this->db->query("SELECT COUNT(*) as num FROM report where
             (report.report_status = 1 and (current_timestamp() - report.report_createat < $time))")->result();
         $report_finish = $this->db->query("SELECT COUNT(*) as num FROM report where
             (report.report_status = 2 and (current_timestamp() - report.report_createat < $time))")->result();
-        $report_all    = $this->db->count_all('report');
-        return array("report"=>$report[0]->num , "report_accept" =>$report_accept[0]->num , "report_finish" => $report_finish[0]->num , "report_all"=>$report_all);
+        $report_all = $this->db->count_all('report');
+        return array("report" => $report[0]->num, "report_accept" => $report_accept[0]->num, "report_finish" => $report_finish[0]->num, "report_all" => $report_all);
     }
 
     public function get_report()
@@ -52,7 +52,7 @@ SQL;
         ON r.report_reporter = u.id
 SQL;
         $query = $this->db->query($sql);
-        return $query?$query->result():false;
+        return $query ? $query->result() : false;
     }
 
     public function get_repairer()
@@ -75,28 +75,28 @@ SQL;
         return $this->db->get('report_type')->result();
     }
 
-    public function check_type($type,$id)
+    public function check_type($type, $id)
     {
         if ($type == 'user')
             $type = 'users';
         if ($type == 'type')
             $type = 'report_type';
-        return $this->db->get_where($type,array('id'=>$id))->result();
+        return $this->db->get_where($type, array('id' => $id))->result();
     }
 
     public function check_report($id)
     {
-        return $this->db->get_where('report', array('id'=>$id))->result();
+        return $this->db->get_where('report', array('id' => $id))->result();
     }
 
     public function check_user($id)
     {
-        return $this->db->get_where('users', array('id'=>$id))->result();
+        return $this->db->get_where('users', array('id' => $id))->result();
     }
 
     public function check_repairer($id)
     {
-        return $this->db->get_where('repairer', array('id'=>$id))->result();
+        return $this->db->get_where('repairer', array('id' => $id))->result();
     }
 
     public function get_field_data($table_name)
@@ -104,14 +104,14 @@ SQL;
         return $this->db->list_fields($table_name);
     }
 
-    public function update($type,$id,$data)
+    public function update($type, $id, $data)
     {
-        if ($type=='user')
+        if ($type == 'user')
             $type = 'users';
         if ($type == 'type')
             $type = 'report_type';
-        $this->db->where('id',$id);
-        return $this->db->update($type , $data);
+        $this->db->where('id', $id);
+        return $this->db->update($type, $data);
     }
 
     public function get_chart_time()
@@ -121,4 +121,25 @@ SQL;
                 group by day(report_createat)";
         return $this->db->query($sql)->result();
     }
+
+    public function get_chart_type()
+    {
+        $sql = "SELECT COUNT(*) as 'count' , t.type_name
+                FROM report r
+                LEFT JOIN report_type t
+                ON t.id = r.report_type
+                GROUP BY r.report_type";
+        return $this->db->query($sql)->result();
+    }
+
+    public function get_chart_pos()
+    {
+        $sql = "SELECT COUNT(*) as 'count' , t.pos_name
+                FROM report r
+                LEFT JOIN position t
+                ON t.id = r.report_pos
+                GROUP BY r.report_pos";
+        return $this->db->query($sql)->result();
+    }
+
 }

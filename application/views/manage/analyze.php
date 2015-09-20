@@ -12,7 +12,6 @@
 
     <link href="http://cdn.bootcss.com/bootstrap/3.3.5/css/bootstrap.min.css" rel="stylesheet">
     <script src="//cdn.bootcss.com/canvasjs/1.7.0/canvasjs.min.js"></script>
-
     <link href="../../../static/dashboard.css" rel="stylesheet">
 
 </head>
@@ -63,7 +62,18 @@
             </ul>
         </div>
         <div class="col-sm-9 col-sm-offset-3 col-md-10 col-md-offset-2 main">
-          <h2 class="sub-header">状态分析</h2>
+            <div class="row">
+                <div class="col-sm-6">
+                    <div id="typeChart" style="height:300px;width:100%"></div>
+                </div>
+                <div class="col-sm-6">
+                    <div id="posChart" style="height:300px;width:100%"></div>
+                </div>
+            </div>
+
+            <div class="col-md-10 margin-top:5px">
+                <div id="timeChart" style="height:300px;width:100%"></div>
+            </div>
 
         </div>
     </div>
@@ -71,38 +81,100 @@
 
 <script src="http://cdn.bootcss.com/jquery/1.11.3/jquery.min.js"></script>
 <script src="http://cdn.bootcss.com/bootstrap/3.3.5/js/bootstrap.min.js"></script>
-<script type="application/javascript">
-    window.onload = function () {
-        var chart = new CanvasJS.Chart("chartContainer",
+<script src="../../../static/js/Chart.min.js"></script>
+<script>
+    function time_chart(data) {
+        var list= [];
+        for (point in data) {
+            var time = new Date(data[point].report_createat);
+            list.push({
+                x: new Date(time.getFullYear(), time.getMonth(), time.getDay()),
+                y: parseInt(data[point].count)
+            });
+        }
+        var chart = new CanvasJS.Chart("timeChart",
             {
 
-                title:{
-                    text: "Earthquakes - per month"
+                title: {
+                    text: "最近故障发生统计"
                 },
                 data: [
                     {
-                        type: "line",
-
-                        dataPoints: [
-                            { x: new Date(2012, 00, 1), y: 450 },
-                            { x: new Date(2012, 01, 1), y: 414 },
-                            { x: new Date(2012, 02, 1), y: 520 },
-                            { x: new Date(2012, 03, 1), y: 460 },
-                            { x: new Date(2012, 04, 1), y: 450 },
-                            { x: new Date(2012, 05, 1), y: 500 },
-                            { x: new Date(2012, 06, 1), y: 480 },
-                            { x: new Date(2012, 07, 1), y: 480 },
-                            { x: new Date(2012, 08, 1), y: 410 },
-                            { x: new Date(2012, 09, 1), y: 500 },
-                            { x: new Date(2012, 10, 1), y: 480 },
-                            { x: new Date(2012, 11, 1), y: 510 }
-                        ]
+                        type: "spline",
+                        dataPoints: list
                     }
                 ]
             });
-
         chart.render();
     }
+    function type_chart(data) {
+        list = [];
+        for (point in data){
+            alert(data[point].type_name);
+            list.push({
+                y: parseInt(data[point].count),
+                indexLabel: data[point].type_name
+            });
+        }
+        var chart = new CanvasJS.Chart("typeChart",
+            {
+                title:{
+                    text: "损坏类型分布"
+                },
+                legend: {
+                    maxWidth: 350,
+                    itemWidth: 120
+                },
+                data: [
+                    {
+                        type: "pie",
+                        showInLegend: true,
+                        legendText: "{indexLabel}",
+                        dataPoints: list
+//                            { y: 4181563, indexLabel: "PlayStation 3" },
+
+                    }
+                ]
+            });
+        chart.render();
+    }
+    function pos_chart(data) {
+        list = [];
+        for (point in data){
+            alert(data[point].pos_name);
+            list.push({
+                y: parseInt(data[point].count),
+                indexLabel: data[point].pos_name
+            });
+        }
+        var chart = new CanvasJS.Chart("posChart",
+            {
+                title:{
+                    text: "损坏地点分布"
+                },
+                legend: {
+                    maxWidth: 350,
+                    itemWidth: 120
+                },
+                data: [
+                    {
+                        type: "pie",
+                        showInLegend: true,
+                        legendText: "{indexLabel}",
+                        dataPoints: list
+//                            { y: 4181563, indexLabel: "PlayStation 3" },
+
+                    }
+                ]
+            });
+        chart.render();
+    }
+    var timechartdata = <?php echo $timechartdata?>;
+    var typechartdata = <?php echo $typechartdata?>;
+    var poschartdata = <?php echo $poschartdata?>;
+    time_chart(timechartdata);
+    type_chart(typechartdata);
+    pos_chart(poschartdata);
 </script>
 </body>
 </html>

@@ -9,9 +9,11 @@
 
         <div class="form-group">
             <label>故障地点名称</label>
-            <input class="form-control" name="pos_name" value="<?= $data->pos_name?>">
+            <input class="form-control" name="pos_name" value="<?= $data->pos_name ?>">
         </div>
-        <button type="submit" class="btn btn-default">Submit</button>
+        <div class="form-group">
+            <button type="submit" class="btn btn-default">Submit</button>
+        </div>
         <?php if (isset($info)) { ?>
             <div class="alert alert-info" role="alert">
                 <p><strong><?= $info ?></strong></p>

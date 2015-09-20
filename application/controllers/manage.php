@@ -65,8 +65,13 @@ class Manage extends CI_Controller {
 
     public function analyze()
     {
-        $chart_time_data = $this->manage_model->get_chart_time();
-        $this->load->view('manage/analyze', array('username' => $this->username,'charttime'=>$chart_time_data));
+        $timechartdata = json_encode($this->manage_model->get_chart_time());
+        $typechartdata = json_encode($this->manage_model->get_chart_type());
+        $poschartdata  = json_encode($this->manage_model->get_chart_pos());
+        $this->load->view('manage/analyze', array('username' => $this->username,
+                                                  'timechartdata'=>$timechartdata,
+                                                  'typechartdata'=>$typechartdata,
+                                                  'poschartdata' =>$poschartdata));
     }
 
     public function predict()

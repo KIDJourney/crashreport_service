@@ -391,6 +391,19 @@ class Api extends CI_Controller {
         echo $this->auth_lib->check_type();
     }
 
+    public function get_report_repairer($id)
+    {
+        if (!isset($id) or !is_numeric($id)){
+            $this->error_message('argument error');
+        }
+
+        if ($result = $this->api_model->get_report_repairer($id)){
+            $this->output->set_output(json_encode($result));
+        } else {
+            $this->error_message("The report not exist or have not be accpeted");
+        }
+    }
+
 
     private function check_login()
     {

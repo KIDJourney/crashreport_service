@@ -188,6 +188,14 @@ SQL;
         return $this->db->get_where('repairer',array('id'=>$id))->result();
     }
 
+    public function get_report_repairer($id)
+    {
+        $sql = "SELECT rep.repairer_tel
+FROM report r, repairer rep
+where r.report_status != 0 and r.id = $id  and r.report_fixerid = rep.id";
+        return $this->db->query($sql)->result();
+    }
+
     private function report_url_fixer($report_list)
     {
         $url_prefix = "http://crashreport-picture.stor.sinaapp.com/";

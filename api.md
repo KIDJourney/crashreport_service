@@ -104,8 +104,6 @@ example : url/api/accept_report/1
 
 response : status json or error message
 
-
-
 ####finish_report()
 
 description : finish a report in the name of logging in repairer
@@ -129,6 +127,16 @@ arugment : ['id':'']
 example : url/api/repairer/1
 
 response : status json and info
+
+####get_report_repairer()
+
+description : get the tel of repairer of report
+
+arugment : ['id':'']
+
+example : url/api/get_report_repairer/3
+
+response : result or error message
 
 *************************************************
 

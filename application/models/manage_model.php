@@ -50,6 +50,7 @@ SQL;
         ON r.report_type = t.id
         LEFT JOIN users u
         ON r.report_reporter = u.id
+        ORDER BY r.report_createat DESC
 SQL;
         $query = $this->db->query($sql);
         return $query ? $query->result() : false;
@@ -140,6 +141,20 @@ SQL;
                 ON t.id = r.report_pos
                 GROUP BY r.report_pos";
         return $this->db->query($sql)->result();
+    }
+
+    public function delete_type($type , $id)
+    {
+        if ($type == 'user')
+            $type = 'users';
+
+        return $this->db->delete($type,array('id'=>$id));
+    }
+    public function insert_type($type,$data)
+    {
+        if ($type == 'type')
+            $type = 'report_type';
+        return $this->db->insert($type,$data);
     }
 
 }

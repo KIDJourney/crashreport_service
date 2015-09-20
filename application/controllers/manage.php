@@ -27,16 +27,16 @@ class Manage extends CI_Controller {
         $recent_report = $this->manage_model->get_recent_report();
         $report_count = $this->manage_model->get_report_count();
 
-        $this->load->view('manage/dashboard', array('username'     => $username,
-                                                    "reports"      => $recent_report,
-                                                    "report_count" => $report_count));
+        $this->load->view('manage/dashboard', array('username' => $username,
+            "reports" => $recent_report,
+            "report_count" => $report_count));
     }
 
     public function report()
     {
         $reports = $this->manage_model->get_report();
         $this->load->view('manage/report', array('username' => $this->username,
-                                                 'reports'  => $reports));
+            'reports' => $reports));
     }
 
     public function repairer()
@@ -67,11 +67,11 @@ class Manage extends CI_Controller {
     {
         $timechartdata = json_encode($this->manage_model->get_chart_time());
         $typechartdata = json_encode($this->manage_model->get_chart_type());
-        $poschartdata  = json_encode($this->manage_model->get_chart_pos());
+        $poschartdata = json_encode($this->manage_model->get_chart_pos());
         $this->load->view('manage/analyze', array('username' => $this->username,
-                                                  'timechartdata'=>$timechartdata,
-                                                  'typechartdata'=>$typechartdata,
-                                                  'poschartdata' =>$poschartdata));
+            'timechartdata' => $timechartdata,
+            'typechartdata' => $typechartdata,
+            'poschartdata' => $poschartdata));
     }
 
     public function predict()
@@ -105,10 +105,7 @@ class Manage extends CI_Controller {
     public function edit($type, $id)
     {
         $accept_type = array('report', 'repairer', 'user', 'position', 'type');
-        $active_class = array();
-        foreach ($accept_type as $key)
-            $active_class[$key] = "";
-
+        $active_class = $this->active_list($type);
         if (!isset($type) or !isset($id) or !is_numeric($id)
             or !in_array($type, $accept_type)
         ) {
@@ -126,12 +123,12 @@ class Manage extends CI_Controller {
                 $data = $this->manage_model->check_type($type, $id);
                 $data = $data[0];
                 $this->load->view('manage/edit', array('username' => $this->username, 'active_class' => $active_class));
-                $this->load->view('manage/form/report', array('types'         => $report_type, 'positions' => $position, 'data' => $data,
-                                                              'report_status' => array("$data->report_status" => 'checked'),
-                                                              'info'          => $result));
+                $this->load->view('manage/form/report', array('types' => $report_type, 'positions' => $position, 'data' => $data,
+                    'report_status' => array("$data->report_status" => 'checked'),
+                    'info' => $result));
             } else {
-                $this->edit_post_handler($type,$id,$post_data,$active_class);
-                return ;
+                $this->edit_post_handler($type, $id, $post_data, $active_class);
+                return;
             }
         }
 
@@ -141,13 +138,47 @@ class Manage extends CI_Controller {
             $data = $this->manage_model->check_report($id);
             $data = $data[0];
             $this->load->view('manage/edit', array('username' => $this->username, 'active_class' => $active_class));
-            $this->load->view('manage/form/report', array('types'         => $report_type, 'positions' => $position, 'data' => $data,
-                                                          'report_status' => array("$data->report_status" => 'checked')));
+            $this->load->view('manage/form/report', array('types' => $report_type, 'positions' => $position, 'data' => $data,
+                'report_status' => array("$data->report_status" => 'checked')));
         } else {
             $this->edit_load_form($type, $id, $active_class);
         }
     }
 
+    public function create($type)
+    {
+        $accept_type = array('position','repairer','type');
+        if (!in_array($type,$accept_type)){
+            $this->jump_back();
+            return ;
+        }
+        $active_class = $this->active_list($type);
+        if ($this->input->post()) {
+            if ($this->manage_model->insert_type($type, $this->input->post())) {
+                $this->load->view('manage/edit', array('username' => $this->username, 'active_class' => $active_class));
+                $this->load->view('manage/create/' . $type, array('info' => "添加成功"));
+            } else {
+                $this->load->view('manage/edit', array('username' => $this->username, 'active_class' => $active_class));
+                $this->load->view('manage/create/' . $type, array('info' => "添加失败"));
+            }
+            return;
+        }
+
+        $this->load->view('manage/edit', array('username' => $this->username, 'active_class' => $active_class));
+        $this->load->view('manage/create/' . $type);
+    }
+
+    public function delete($type,$id)
+    {
+        $accept_type = array('user','repairer','report');
+        if (!in_array($type,$accept_type)){
+            $this->jump_back();
+            return;
+        }
+        if ($this->manage_model->delete_type($type,$id)){
+            redirect('manage/'.$type);
+        }
+    }
 
     public function logoff()
     {
@@ -178,13 +209,13 @@ class Manage extends CI_Controller {
         $this->load->view('manage/form/' . $type, array('data' => $data));
     }
 
-    private function edit_post_handler($type,$id,$post_data,$active_class)
+    private function edit_post_handler($type, $id, $post_data, $active_class)
     {
         $result = $this->manage_model->update($type, $id, $post_data) ? '更新成功' : '更新失败，请检查你的输入';
         $data = $this->manage_model->check_type($type, $id);
         $data = $data[0];
         $this->load->view('manage/edit', array('username' => $this->username, 'active_class' => $active_class));
-        $this->load->view('manage/form/'.$type, array('data' => $data, 'info' => $result));
+        $this->load->view('manage/form/' . $type, array('data' => $data, 'info' => $result));
     }
 
 
@@ -195,6 +226,20 @@ class Manage extends CI_Controller {
             window.history.back(-1);
         </script>
 JS;
+    }
+
+    /**
+     * @param $type
+     * @return array
+     */
+    private function active_list($type)
+    {
+        $all_type = array('report', 'repairer', 'user', 'position', 'type');
+        $active_class = array();
+        foreach ($all_type as $key)
+            $active_class[$key] = "";
+        $active_class[$type] = 'class="active"';
+        return $active_class;
     }
 
 }

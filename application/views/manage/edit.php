@@ -63,8 +63,8 @@
             </ul>
             <ul class="nav nav-sidebar">
                 <li><a href="/manage/analyze">状态分析</a></li>
-                <li><a href="/manage/predict">损坏预测</a></li>
-                <li><a href="/manage/summary">报告生成</a></li>
+
+
             </ul>
         </div>
     </div>

@@ -15,7 +15,7 @@
             <label>联系方式</label>
             <input id="user_tel" class="form-control" name="user_tel" value="<?= $data->user_tel ?>">
         </div>
-        <button id="submit" type="submit" class="btn btn-default">Submit</button>
+        <button id="submit" type="submit" class="btn btn-default">提交</button>
         <?php if (isset($info)) { ?>
             <div class="alert alert-info" role="alert">
                 <p><strong><?= $info ?></strong></p>

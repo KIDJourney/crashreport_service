@@ -16,7 +16,6 @@
     <link href="../../../static/dashboard.css" rel="stylesheet">
 
 
-
 </head>
 
 <body>
@@ -67,6 +66,9 @@
         <div class="col-sm-9 col-sm-offset-3 col-md-10 col-md-offset-2 main">
             <h2 class="sub-header">报修类型管理</h2>
 
+            <div>
+                <a class="btn btn-primary" href="<?= base_url('manage/create/type') ?>" role="button">添加新类型</a>
+            </div>
             <div class="table-responsive">
                 <table class="table table-striped">
                     <thead>
@@ -84,7 +86,8 @@
                             <td><?= $type->id ?></td>
                             <td><?= $type->type_name ?></td>
                             <td>
-                                <a class="btn btn-default" href="<?= base_url('manage/edit/type/'.$type->id)?>" role="button">编辑</a>
+                                <a class="btn btn-default" href="<?= base_url('manage/edit/type/' . $type->id) ?>"
+                                   role="button">编辑</a>
                             </td>
                         </tr>
                     <?php endforeach; ?>

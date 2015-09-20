@@ -67,6 +67,9 @@
         <div class="col-sm-9 col-sm-offset-3 col-md-10 col-md-offset-2 main">
             <h2 class="sub-header">校园地点管理</h2>
 
+            <div>
+                <a class="btn btn-primary" href="<?= base_url('manage/create/position') ?>" role="button">添加新地点</a>
+            </div>
             <div class="table-responsive">
                 <table class="table table-striped">
                     <thead>
@@ -80,8 +83,7 @@
                     <?php foreach ($positions as $position): ?>
                     <tr>
                         <td><?= $position->id; ?></td>
-                        <td><?= $position->pos_name; ?></td>
-                        <td>
+                        <td><?= $position->pos_name; ?></td>                        <td>
                             <a class="btn btn-default" href="<?= base_url('manage/edit/position/'.$position->id)?>" role="button">编辑</a>
                         </td>
                         <?php endforeach; ?>

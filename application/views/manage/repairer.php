@@ -16,7 +16,6 @@
     <link href="../../../static/dashboard.css" rel="stylesheet">
 
 
-
 </head>
 
 <body>
@@ -66,6 +65,7 @@
         </div>
         <div class="col-sm-9 col-sm-offset-3 col-md-10 col-md-offset-2 main">
             <h2 class="sub-header">维修人员</h2>
+            <a class="btn btn-primary" href="<?= base_url('manage/create/repairer') ?>" role="button">添加维修人员</a>
 
             <div class="table-responsive">
                 <table class="table table-striped">
@@ -84,8 +84,11 @@
                             <td><?= $repairer->repairer_name; ?></td>
                             <td><?= $repairer->repairer_tel; ?></td>
                             <td>
-                                <a class="btn btn-default" href="<?= base_url('manage/edit/repairer/' . $repairer->id) ?>" role="button">编辑</a>
-                                <a class="btn btn-warning" href="<?= base_url('manage/delete/repairer/' . $repairer->id) ?>" role="button">删除</a>
+                                <a class="btn btn-default"
+                                   href="<?= base_url('manage/edit/repairer/' . $repairer->id) ?>" role="button">编辑</a>
+                                <a class="btn btn-warning"
+                                   href="<?= base_url('manage/delete/repairer/' . $repairer->id) ?>"
+                                   role="button">删除</a>
                             </td>
                         </tr>
                     <?php endforeach; ?>

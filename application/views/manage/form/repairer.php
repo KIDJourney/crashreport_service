@@ -11,7 +11,7 @@
             <label>维修人员电话</label>
             <input class="form-control" name="repairer_tel" value="<?= $data->repairer_tel ?>">
         </div>
-        <div class="form-group">     <button type="submit" class="btn btn-default">Submit</button> </div>
+        <div class="form-group">     <button type="submit" class="btn btn-default">提交</button> </div>
         <?php if (isset($info)) { ?>
             <div class="alert alert-info" role="alert">
                 <p><strong><?= $info ?></strong></p>

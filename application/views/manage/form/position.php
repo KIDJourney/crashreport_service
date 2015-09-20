@@ -12,7 +12,8 @@
             <input class="form-control" name="pos_name" value="<?= $data->pos_name ?>">
         </div>
         <div class="form-group">
-            <button type="submit" class="btn btn-default">Submit</button>
+            <button type="submit" class="btn btn-default">提交</button>
+            <a class="btn btn-default" onclick="window.history.back()">返回</a>
         </div>
         <?php if (isset($info)) { ?>
             <div class="alert alert-info" role="alert">

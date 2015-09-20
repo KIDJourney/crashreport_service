@@ -110,7 +110,6 @@
     function type_chart(data) {
         list = [];
         for (point in data){
-            alert(data[point].type_name);
             list.push({
                 y: parseInt(data[point].count),
                 indexLabel: data[point].type_name
@@ -141,7 +140,6 @@
     function pos_chart(data) {
         list = [];
         for (point in data){
-            alert(data[point].pos_name);
             list.push({
                 y: parseInt(data[point].count),
                 indexLabel: data[point].pos_name

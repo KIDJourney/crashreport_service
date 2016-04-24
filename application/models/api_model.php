@@ -198,7 +198,7 @@ where r.report_status != 0 and r.id = $id  and r.report_fixerid = rep.id";
 
     private function report_url_fixer($report_list)
     {
-        $url_prefix = "http://crashreport-picture.stor.sinaapp.com/";
+        $url_prefix = "http://communitydefender-picture.stor.sinaapp.com/";
         foreach ($report_list as $report) {
             $report->report_picurl = $url_prefix . $report->report_picurl;
         }

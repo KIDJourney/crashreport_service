@@ -72,8 +72,8 @@
                     <thead>
                     <tr>
                         <th>#</th>
-                        <th>修理人员姓名</th>
-                        <th>修理人员电话</th>
+                        <th>事件人员姓名</th>
+                        <th>事件人员电话</th>
                         <th>操作</th>
                     </tr>
                     </thead>

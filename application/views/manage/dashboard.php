@@ -82,7 +82,7 @@
                 </div>
                 <div class="col-xs-6 col-sm-3 placeholder">
                     <h3><?php echo $report_count['report_all']; ?></h3>
-                    <span class="text-muted">历史总保修数</span>
+                    <span class="text-muted">历史总事件数</span>
                 </div>
             </div>
 

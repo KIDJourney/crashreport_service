@@ -47,7 +47,7 @@
             <ul class="nav nav-sidebar">
                 <li><a href="/manage/index">总览<span class="sr-only">(current)</span></a></li>
                 <li><a href="/manage/report">报告</a></li>
-                <li class="active"><a href="/manage/repairer">维修人员</a></li>
+                <li class="active"><a href="/manage/repairer">管理人员</a></li>
                 <li><a href="/manage/user">用户</a></li>
             </ul>
             <ul class="nav nav-sidebar">
@@ -64,8 +64,8 @@
             </ul>
         </div>
         <div class="col-sm-9 col-sm-offset-3 col-md-10 col-md-offset-2 main">
-            <h2 class="sub-header">维修人员</h2>
-            <a class="btn btn-primary" href="<?= base_url('manage/create/repairer') ?>" role="button">添加维修人员</a>
+            <h2 class="sub-header">管理人员</h2>
+            <a class="btn btn-primary" href="<?= base_url('manage/create/repairer') ?>" role="button">添加管理人员</a>
 
             <div class="table-responsive">
                 <table class="table table-striped">

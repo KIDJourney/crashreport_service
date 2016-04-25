@@ -1,5 +1,5 @@
 <div class="col-sm-9 col-sm-offset-3 col-md-10 col-md-offset-2 main">
-    <h2 class="sub-header">添加维修人员</h2>
+    <h2 class="sub-header">添加管理人员</h2>
 
     <form action="<?php echo current_url(); ?>" method="post">
         <div class="form-group">

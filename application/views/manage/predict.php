@@ -52,7 +52,7 @@ head>
             <ul class="nav nav-sidebar">
                 <li><a href="/manage/index">总览<span class="sr-only">(current)</span></a></li>
                 <li><a href="/manage/report">报告</a></li>
-                <li><a href="/manage/repairer">维修人员</a></li>
+                <li><a href="/manage/repairer">管理人员</a></li>
                 <li><a href="/manage/user">用户</a></li>
             </ul>
             <ul class="nav nav-sidebar">
@@ -64,12 +64,12 @@ head>
             </ul>
             <ul class="nav nav-sidebar">
                 <li><a href="/manage/analyze">状态分析</a></li>
-                <li class="active"><a href="/manage/predict">损坏预测</a></li>
+                <li class="active"><a href="/manage/predict">事件预测</a></li>
 
             </ul>
         </div>
         <div class="col-sm-9 col-sm-offset-3 col-md-10 col-md-offset-2 main">
-            <h1 class="page-header">损坏预测</h1>
+            <h1 class="page-header">事件预测</h1>
 
         </div>
     </div>

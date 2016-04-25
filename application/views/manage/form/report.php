@@ -3,7 +3,7 @@
 
     <form action="<?php echo current_url(); ?>" method="post">
         <div class="form-group">
-            <label>故障地点</label>
+            <label>事件地点</label>
             <select name="report_pos" class="form-control">
                 <?php foreach ($positions as $position): ?>
                     <option
@@ -12,11 +12,11 @@
             </select>
         </div>
         <div class="form-group">
-            <label>故障详情</label>
+            <label>事件详情</label>
             <input type="text" name="report_info" class="form-control" value="<?= $data->report_info ?>">
         </div>
         <div class="form-group">
-            <label>故障类型</label>
+            <label>事件类型</label>
             <select name="report_type" class="form-control">
                 <?php foreach ($types as $type): ?>
                     <option

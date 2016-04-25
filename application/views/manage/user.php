@@ -47,7 +47,7 @@
             <ul class="nav nav-sidebar">
                 <li><a href="/manage/index">总览<span class="sr-only">(current)</span></a></li>
                 <li><a href="/manage/report">报告</a></li>
-                <li><a href="/manage/repairer">维修人员</a></li>
+                <li><a href="/manage/repairer">管理人员</a></li>
                 <li class="active"><a href="/manage/user">用户</a></li>
             </ul>
             <ul class="nav nav-sidebar">

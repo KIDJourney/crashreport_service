@@ -7,8 +7,6 @@
 -- 服务器版本: 5.5.23
 -- PHP 版本: 5.3.3
 
-SET SQL_MODE="NO_AUTO_VALUE_ON_ZERO";
-
 
 /*!40101 SET @OLD_CHARACTER_SET_CLIENT=@@CHARACTER_SET_CLIENT */;
 /*!40101 SET @OLD_CHARACTER_SET_RESULTS=@@CHARACTER_SET_RESULTS */;
@@ -18,8 +16,7 @@ SET SQL_MODE="NO_AUTO_VALUE_ON_ZERO";
 --
 -- 数据库: `app_crashreport`
 --
-CREATE DATABASE `app_crashreport` DEFAULT CHARACTER SET utf8 COLLATE utf8_general_ci;
-USE `app_crashreport`;
+USE `app_communitydefender`;
 
 -- --------------------------------------------------------
 

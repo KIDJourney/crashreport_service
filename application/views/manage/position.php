@@ -48,7 +48,7 @@
             <ul class="nav nav-sidebar">
                 <li><a href="/manage/index">总览<span class="sr-only">(current)</span></a></li>
                 <li><a href="/manage/report">报告</a></li>
-                <li><a href="/manage/repairer">维修人员</a></li>
+                <li><a href="/manage/repairer">管理人员</a></li>
                 <li><a href="/manage/user">用户</a></li>
             </ul>
             <ul class="nav nav-sidebar">
@@ -65,7 +65,7 @@
             </ul>
         </div>
         <div class="col-sm-9 col-sm-offset-3 col-md-10 col-md-offset-2 main">
-            <h2 class="sub-header">校园地点管理</h2>
+            <h2 class="sub-header">事件地点管理</h2>
 
             <div>
                 <a class="btn btn-primary" href="<?= base_url('manage/create/position') ?>" role="button">添加新地点</a>

@@ -52,7 +52,7 @@
             </ul>
             <ul class="nav nav-sidebar">
                 <li><a href="/manage/position">管理地点</a></li>
-                <li class="active"><a href="/manage/type">管理报修类别</a></li>
+                <li class="active"><a href="/manage/type">管理事件类别</a></li>
                 <li><a href=""></a></li>
                 <li><a href=""></a></li>
                 <li><a href=""></a></li>
@@ -64,7 +64,7 @@
             </ul>
         </div>
         <div class="col-sm-9 col-sm-offset-3 col-md-10 col-md-offset-2 main">
-            <h2 class="sub-header">报修类型管理</h2>
+            <h2 class="sub-header">事件类型管理</h2>
 
             <div>
                 <a class="btn btn-primary" href="<?= base_url('manage/create/type') ?>" role="button">添加新类型</a>

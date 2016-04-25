@@ -53,7 +53,7 @@
             </ul>
             <ul class="nav nav-sidebar">
                 <li><a href="/manage/position">管理地点</a></li>
-                <li><a href="/manage/type">管理报修类别</a></li>
+                <li><a href="/manage/type">管理事件类别</a></li>
                 <li><a href=""></a></li>
                 <li><a href=""></a></li>
                 <li><a href=""></a></li>
@@ -70,15 +70,15 @@
             <div class="row placeholders">
                 <div class="col-xs-6 col-sm-3 placeholder">
                     <h3><?php echo $report_count['report']; ?></h3>
-                    <span class="text-muted">24小时内报修数</span>
+                    <span class="text-muted">24小时内事件数</span>
                 </div>
                 <div class="col-xs-6 col-sm-3 placeholder">
                     <h3><?php echo $report_count['report_accept']; ?></h3>
-                    <span class="text-muted">正在处理的报修</span>
+                    <span class="text-muted">正在处理的事件</span>
                 </div>
                 <div class="col-xs-6 col-sm-3 placeholder">
                     <h3><?php echo $report_count['report_finish']; ?></h3>
-                    <span class="text-muted">24小时内完成的报修数</span>
+                    <span class="text-muted">24小时内完成的事件数</span>
                 </div>
                 <div class="col-xs-6 col-sm-3 placeholder">
                     <h3><?php echo $report_count['report_all']; ?></h3>
@@ -86,7 +86,7 @@
                 </div>
             </div>
 
-            <h2 class="sub-header">最近提交的维修请求</h2>
+            <h2 class="sub-header">最近提交的事件请求</h2>
 
             <div class="table-responsive">
                 <table class="table table-striped">

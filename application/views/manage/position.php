@@ -53,7 +53,7 @@
             </ul>
             <ul class="nav nav-sidebar">
                 <li class="active"><a href="/manage/position">管理地点</a></li>
-                <li><a href="/manage/type">管理报修类别</a></li>
+                <li><a href="/manage/type">管理事件类别</a></li>
                 <li><a href=""></a></li>
                 <li><a href=""></a></li>
                 <li><a href=""></a></li>

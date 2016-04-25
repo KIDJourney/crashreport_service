@@ -56,7 +56,7 @@
             </ul>
             <ul class="nav nav-sidebar">
                 <li <?= $active_class['position'];?>><a href="/manage/position">管理地点</a></li>
-                <li <?= $active_class['type'];?>><a href="/manage/type">管理报修类别</a></li>
+                <li <?= $active_class['type'];?>><a href="/manage/type">管理事件类别</a></li>
                 <li><a href=""></a></li>
                 <li><a href=""></a></li>
                 <li><a href=""></a></li>

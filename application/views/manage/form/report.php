@@ -27,7 +27,7 @@
         <div class="form-group">
             <label class="radio-inline">
                 <input type="radio" name="report_status" <?= isset($report_status['0']) ? $report_status['0'] : ''; ?>
-                       value="0">尚未维修
+                       value="0">尚未事件
             </label>
             <label class="radio-inline">
                 <input type="radio" name="report_status" <?= isset($report_status['1']) ? $report_status['1'] : ''; ?>

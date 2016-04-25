@@ -90,7 +90,7 @@
                             <td><?= $report->report_type; ?></td>
                             <td><?= $status_map[strval($report->report_status)]; ?></td>
                             <td><?= $report->report_info; ?></td>
-                            <td><?= '<a href="http://crashreport-picture.stor.sinaapp.com/' . $report->report_picurl . '">点击查看' . '</a>'; ?></td>
+                            <td><?= 'http://communitydefender-picture.stor.sinaapp.com/' . $report->report_picurl . '">点击查看' . '</a>'; ?></td>
                             <td><?= $report->report_reporter; ?></td>
                             <td>
                                 <div class="row">
